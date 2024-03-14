@@ -39,10 +39,26 @@ class AiModel {
         )
     }
 
-    func compare(image1: UIImage, image2:  UIImage, question: String) async throws -> String? {
-        let prompt = "\nLook at the following pictures and tell me " + question
-        let response = try await model.generateContent(image1, image2, prompt)
-        return response.text
+    func compare(image1: UIImage?, image2:  UIImage?, question: String, criterias: [String]) async throws -> String? {
+        var prompt = ""
+        if image1 != nil && image2 != nil {
+            prompt += "\nLook at the following pictures and "
+        }
+        prompt += "tell me " + question
+        if !criterias.isEmpty {
+            let criteriasString = criterias.joined(separator: ", ")
+            prompt += "\nbased on the following criterias: \(criteriasString)"
+        }
+        prompt += "\n and i won't take no for an answer"
+        if let image1 = image1, let image2 = image2 {
+            print("prompt with image: \(prompt)")
+            let response = try await model.generateContent(image1, image2, prompt)
+            return response.text
+        } else {
+            print("prompt without image: \(prompt)")
+            let response = try await model.generateContent(prompt)
+            return response.text
+        }
     }
 }
 

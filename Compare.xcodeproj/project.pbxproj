@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D37B39F2BA30FA400023731 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0D37B39E2BA30FA400023731 /* SkeletonView */; };
 		0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0152BA18B0B006A528A /* AppDelegate.swift */; };
 		0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */; };
 		0DB1D01A2BA18B0B006A528A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0192BA18B0B006A528A /* ViewController.swift */; };
@@ -16,6 +17,12 @@
 		0DB1D02B2BA18B46006A528A /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 0DB1D02A2BA18B46006A528A /* GoogleGenerativeAI */; };
 		0DB1D02D2BA18B89006A528A /* AiModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D02C2BA18B89006A528A /* AiModel.swift */; };
 		0DB1D0332BA1CAEE006A528A /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0DB1D0322BA1CAEE006A528A /* Keys.plist */; };
+		0DB1D0392BA20AC6006A528A /* TaglistCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0342BA20AC6006A528A /* TaglistCollection.swift */; };
+		0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0352BA20AC6006A528A /* Theme.swift */; };
+		0DB1D03B2BA20AC6006A528A /* CloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0362BA20AC6006A528A /* CloseButton.swift */; };
+		0DB1D03C2BA20AC6006A528A /* StringExtentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0372BA20AC6006A528A /* StringExtentions.swift */; };
+		0DB1D03D2BA20AC6006A528A /* TagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0382BA20AC6006A528A /* TagCollectionCell.swift */; };
+		0DB1D0402BA20B66006A528A /* TagCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB1D03F2BA20B66006A528A /* TagCollectionCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,12 @@
 		0DB1D0232BA18B0C006A528A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0DB1D02C2BA18B89006A528A /* AiModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AiModel.swift; sourceTree = "<group>"; };
 		0DB1D0322BA1CAEE006A528A /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		0DB1D0342BA20AC6006A528A /* TaglistCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaglistCollection.swift; sourceTree = "<group>"; };
+		0DB1D0352BA20AC6006A528A /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		0DB1D0362BA20AC6006A528A /* CloseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseButton.swift; sourceTree = "<group>"; };
+		0DB1D0372BA20AC6006A528A /* StringExtentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtentions.swift; sourceTree = "<group>"; };
+		0DB1D0382BA20AC6006A528A /* TagCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCollectionCell.swift; sourceTree = "<group>"; };
+		0DB1D03F2BA20B66006A528A /* TagCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TagCollectionCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D37B39F2BA30FA400023731 /* SkeletonView in Frameworks */,
 				0DB1D02B2BA18B46006A528A /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -64,15 +78,29 @@
 			children = (
 				0DB1D0152BA18B0B006A528A /* AppDelegate.swift */,
 				0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */,
-				0DB1D0192BA18B0B006A528A /* ViewController.swift */,
 				0DB1D02C2BA18B89006A528A /* AiModel.swift */,
-				0DB1D0322BA1CAEE006A528A /* Keys.plist */,
+				0DB1D0192BA18B0B006A528A /* ViewController.swift */,
 				0DB1D01B2BA18B0B006A528A /* Main.storyboard */,
+				0DB1D03E2BA20ACF006A528A /* Taglist */,
+				0DB1D0322BA1CAEE006A528A /* Keys.plist */,
 				0DB1D01E2BA18B0C006A528A /* Assets.xcassets */,
 				0DB1D0202BA18B0C006A528A /* LaunchScreen.storyboard */,
 				0DB1D0232BA18B0C006A528A /* Info.plist */,
 			);
 			path = Compare;
+			sourceTree = "<group>";
+		};
+		0DB1D03E2BA20ACF006A528A /* Taglist */ = {
+			isa = PBXGroup;
+			children = (
+				0DB1D0362BA20AC6006A528A /* CloseButton.swift */,
+				0DB1D0372BA20AC6006A528A /* StringExtentions.swift */,
+				0DB1D0342BA20AC6006A528A /* TaglistCollection.swift */,
+				0DB1D0382BA20AC6006A528A /* TagCollectionCell.swift */,
+				0DB1D03F2BA20B66006A528A /* TagCollectionCell.xib */,
+				0DB1D0352BA20AC6006A528A /* Theme.swift */,
+			);
+			path = Taglist;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -93,6 +121,7 @@
 			name = Compare;
 			packageProductDependencies = (
 				0DB1D02A2BA18B46006A528A /* GoogleGenerativeAI */,
+				0D37B39E2BA30FA400023731 /* SkeletonView */,
 			);
 			productName = Compare;
 			productReference = 0DB1D0122BA18B0B006A528A /* Compare.app */;
@@ -124,6 +153,7 @@
 			mainGroup = 0DB1D0092BA18B0B006A528A;
 			packageReferences = (
 				0DB1D0292BA18B46006A528A /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				0D37B39D2BA30FA400023731 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 0DB1D0132BA18B0B006A528A /* Products */;
 			projectDirPath = "";
@@ -143,6 +173,7 @@
 				0DB1D01F2BA18B0C006A528A /* Assets.xcassets in Resources */,
 				0DB1D01D2BA18B0B006A528A /* Main.storyboard in Resources */,
 				0DB1D0332BA1CAEE006A528A /* Keys.plist in Resources */,
+				0DB1D0402BA20B66006A528A /* TagCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,9 +185,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0DB1D01A2BA18B0B006A528A /* ViewController.swift in Sources */,
+				0DB1D03C2BA20AC6006A528A /* StringExtentions.swift in Sources */,
+				0DB1D03D2BA20AC6006A528A /* TagCollectionCell.swift in Sources */,
 				0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */,
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
+				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
+				0DB1D03B2BA20AC6006A528A /* CloseButton.swift in Sources */,
 				0DB1D02D2BA18B89006A528A /* AiModel.swift in Sources */,
+				0DB1D0392BA20AC6006A528A /* TaglistCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,6 +417,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0D37B39D2BA30FA400023731 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.30.4;
+			};
+		};
 		0DB1D0292BA18B46006A528A /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/generative-ai-swift";
@@ -392,6 +436,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0D37B39E2BA30FA400023731 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D37B39D2BA30FA400023731 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		0DB1D02A2BA18B46006A528A /* GoogleGenerativeAI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0DB1D0292BA18B46006A528A /* XCRemoteSwiftPackageReference "generative-ai-swift" */;

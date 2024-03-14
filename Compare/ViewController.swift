@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import SkeletonView
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -18,24 +19,55 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var responseTextView: UITextView!
 
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var responseContainerView: UIView!
+
+    @IBOutlet weak var shimmerStackView: UIStackView!
     
-    @IBAction func compareButtonPressed(_ sender: UIButton) {
-        guard let firstImage = firstImageView.image,
-              let secondImage = secondImageView.image,
-              let question = questionTextField.text else {
-            let alert = UIAlertController(title: "Alert", message: "Please add both images & question", preferredStyle: .alert)
+
+    @IBAction func addCriteriaButtonPressed(_ sender: UIButton) {
+        guard let criteria = criteriaTextField.text,
+              !criteria.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Please enter text first", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true, completion: nil)
             return
         }
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        criteriaTextField.text = ""
+        taglistCollection.appendTag(tagName: criteria)
+    }
+    
+    @IBOutlet weak var criteriaTextField: UITextField!
+    
+    @IBOutlet weak var taglistCollection: TaglistCollection!
+
+    @IBAction func compareButtonPressed(_ sender: UIButton) {
+        guard let question = questionTextField.text,
+              !question.isEmpty else {
+            let alert = UIAlertController(title: "Error", message: "Please ask a valid question", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        var firstImage: UIImage?
+        if let image = firstImageView.image,
+           image != placeholderImage {
+            firstImage = image
+        }
+        var secondImage: UIImage?
+        if let image = secondImageView.image,
+           image != placeholderImage {
+            secondImage = image
+        }
+        responseTextView.text = ""
+        shimmerStackView.isHidden = false
+        shimmerStackView.showAnimatedSkeleton()
         Task {
             do {
-                let response = try await aiModel.compare(image1: firstImage, image2: secondImage, question: question)
-                activityIndicator.isHidden = true
-                activityIndicator.stopAnimating()
+                let response = try await aiModel.compare(image1: firstImage, 
+                                                         image2: secondImage,
+                                                         question: question, criterias: taglistCollection.copyAllTags())
+                shimmerStackView.isHidden = true
+                shimmerStackView.stopSkeletonAnimation()
                 responseTextView.text = response ?? "Sorry ... no response available"
             } catch {
                 print(error)
@@ -46,7 +78,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     private var aiModel: AiModel!
     private var imagePickerVC: UIImagePickerController!
-    var firstImageViewFlag = true
+    private var firstImageViewFlag = true
+    private let placeholderImage = UIImage(systemName: "plus")!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,8 +95,22 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let secondTapGesture = UITapGestureRecognizer(target: self, action: #selector(secondImageTapped(tapGestureRecognizer:)))
         secondImageView.isUserInteractionEnabled = true
         secondImageView.addGestureRecognizer(secondTapGesture)
-        activityIndicator.isHidden = true
+        firstImageView.image = placeholderImage
+        secondImageView.image = placeholderImage
+        addGreyBorder(firstImageView)
+        addGreyBorder(secondImageView)
+        addGreyBorder(responseContainerView)
         hideKeyboardWhenTappedAround()
+        taglistCollection.setupTagCollection()
+        shimmerStackView.isHidden = true
+    }
+
+    private func addGreyBorder(_ view: UIView) {
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.masksToBounds = true
+        view.contentMode = .scaleToFill
+        view.layer.borderWidth = 2
+        view.contentMode = .center
     }
 
     @objc func firstImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -80,8 +127,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         picker.dismiss(animated: true)
         guard let image = info[.editedImage] as? UIImage else { return }
         if(firstImageViewFlag) {
+            firstImageView.contentMode = .scaleAspectFit
             firstImageView.image = image
         } else {
+            secondImageView.contentMode = .scaleAspectFit
             secondImageView.image = image
         }
     }
