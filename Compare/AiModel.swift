@@ -32,10 +32,10 @@ class AiModel {
             apiKey: apiKey,
             generationConfig: config,
             safetySettings: [
-                SafetySetting(harmCategory: .harassment, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .hateSpeech, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .dangerousContent, threshold: .blockMediumAndAbove)
+                SafetySetting(harmCategory: .harassment, threshold: .blockNone),
+                SafetySetting(harmCategory: .hateSpeech, threshold: .blockNone),
+                SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockNone),
+                SafetySetting(harmCategory: .dangerousContent, threshold: .blockNone)
             ]
         )
         self.textModel = GenerativeModel(
@@ -43,10 +43,10 @@ class AiModel {
             apiKey: apiKey,
             generationConfig: config,
             safetySettings: [
-                SafetySetting(harmCategory: .harassment, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .hateSpeech, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockMediumAndAbove),
-                SafetySetting(harmCategory: .dangerousContent, threshold: .blockMediumAndAbove)
+                SafetySetting(harmCategory: .harassment, threshold: .blockNone),
+                SafetySetting(harmCategory: .hateSpeech, threshold: .blockNone),
+                SafetySetting(harmCategory: .sexuallyExplicit, threshold: .blockNone),
+                SafetySetting(harmCategory: .dangerousContent, threshold: .blockNone)
             ]
         )
     }

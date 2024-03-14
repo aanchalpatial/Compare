@@ -82,6 +82,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 responseTextView.text = response ?? "Sorry ... no response available"
             } catch {
                 print(error)
+                shimmerStackView.isHidden = true
+                shimmerStackView.stopSkeletonAnimation()
+                responseTextView.text = "We are facing some error, please retry after sometime ..."
             }
         }
 
