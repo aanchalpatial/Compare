@@ -259,7 +259,7 @@ protocol TagViewDelegate: AnyObject {
         let topConstrain = NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .top, multiplier: 1, constant: 0)
         let leftConstrain = NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: collectionView, attribute: .leading, multiplier: 1, constant: 0)
         let rightConstrain = NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: collectionView, attribute: .trailing, multiplier: 1, constant: 0)
-        let heightConstraint = NSLayoutConstraint(item: collectionView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 48.0)
+        let heightConstraint = NSLayoutConstraint(item: collectionView!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 30.0)
         self.addConstraints([topConstrain, heightConstraint, leftConstrain,rightConstrain])
         
         
@@ -402,11 +402,11 @@ extension TaglistCollection : UICollectionViewDataSource ,UICollectionViewDelega
     // 3.
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item < self.tagNames.count {
-            let w = self.tagNames[indexPath.item].width(withConstraintedHeight: 68.0, font: textFont)
-            
-            return CGSize(width: w, height: 48.0)
+            let w = self.tagNames[indexPath.item].width(withConstraintedHeight: 50.0, font: textFont)
+
+            return CGSize(width: w, height: 30.0)
         }
-        return CGSize(width: 40, height: 48.0)
+        return CGSize(width: 40, height: 30.0)
 
     }
     

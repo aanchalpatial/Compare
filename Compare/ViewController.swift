@@ -23,7 +23,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var shimmerStackView: UIStackView!
     
-
+    @IBOutlet weak var criteriaButton: UIButton!
+    
     @IBAction func addCriteriaButtonPressed(_ sender: UIButton) {
         guard let criteria = criteriaTextField.text,
               !criteria.isEmpty else {
@@ -43,6 +44,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var criteriaTextField: UITextField!
     
     @IBOutlet weak var taglistCollection: TaglistCollection!
+
+    @IBOutlet weak var compareButton: UIButton!
+    
 
     @IBAction func compareButtonPressed(_ sender: UIButton) {
 
@@ -106,13 +110,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         secondImageView.image = placeholderImage
         addGreyBorder(firstImageView)
         addGreyBorder(secondImageView)
-        addGreyBorder(responseContainerView)
+//        addGreyBorder(responseContainerView)
         addGreyBorder(questionTextField)
         addGreyBorder(criteriaTextField)
         hideKeyboardWhenTappedAround()
         taglistCollection.setupTagCollection()
         taglistCollection.isHidden = true
         shimmerStackView.isHidden = true
+        criteriaButton.layer.cornerRadius = 0
+        compareButton.layer.cornerRadius = 0
     }
 
     private func addGreyBorder(_ view: UIView) {

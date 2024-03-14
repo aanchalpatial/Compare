@@ -38,7 +38,7 @@ class TagCollectionCell: UICollectionViewCell {
         self.lblTag.textColor = Theme.shared.tagTextColor
         self.lblTag.font = Theme.shared.textFont
         self.viewTag.backgroundColor = Theme.shared.tagBackgroundColor
-        self.viewTag.layer.cornerRadius = 15.0
+        self.viewTag.layer.cornerRadius = 14.0
         self.viewTag.clipsToBounds = true
 
         // Apply theme
