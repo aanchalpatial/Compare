@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="pJq-Pq-iw0">
-                                <rect key="frame" x="16" y="59" width="361" height="727"/>
+                                <rect key="frame" x="16" y="75" width="361" height="727"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="nbl-x1-DtO">
                                         <rect key="frame" x="0.0" y="0.0" width="361" height="172.66666666666666"/>
@@ -37,7 +37,7 @@
                                         </subviews>
                                     </stackView>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Ask your question here?" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="6d4-q0-sXG">
-                                        <rect key="frame" x="0.0" y="188.66666666666666" width="361" height="44"/>
+                                        <rect key="frame" x="0.0" y="188.66666666666669" width="361" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="8Tf-GM-HNR"/>
                                         </constraints>
@@ -104,7 +104,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jJX-f0-5m9">
-                                        <rect key="frame" x="0.0" y="446.66666666666674" width="361" height="280.33333333333326"/>
+                                        <rect key="frame" x="0.0" y="446.66666666666663" width="361" height="280.33333333333337"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAj-68-92f">
                                                 <rect key="frame" x="4" y="4" width="353" height="272.33333333333331"/>
@@ -123,41 +123,41 @@
                                 </subviews>
                             </stackView>
                             <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="23Z-Og-yTH">
-                                <rect key="frame" x="24" y="513.66666666666663" width="345" height="88"/>
+                                <rect key="frame" x="16" y="521.66666666666663" width="361" height="88"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BgH-sf-7fX">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="16"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="361" height="16"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kFx-yA-1jt">
-                                        <rect key="frame" x="0.0" y="24" width="345" height="16"/>
+                                        <rect key="frame" x="0.0" y="24" width="361" height="16"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szQ-5N-DXz">
-                                        <rect key="frame" x="0.0" y="48" width="345" height="16"/>
+                                        <rect key="frame" x="0.0" y="48" width="361" height="16"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="39C-4r-wbO">
-                                        <rect key="frame" x="0.0" y="72" width="345" height="16"/>
+                                        <rect key="frame" x="0.0" y="72" width="361" height="16"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGw-9k-0fx">
-                                                <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="16"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="180.66666666666666" height="16"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySU-2M-pay">
-                                                <rect key="frame" x="172.66666666666663" y="0.0" width="172.33333333333337" height="16"/>
+                                                <rect key="frame" x="180.66666666666663" y="0.0" width="180.33333333333337" height="16"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
                                                 </userDefinedRuntimeAttributes>
@@ -179,12 +179,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="top" secondItem="jJX-f0-5m9" secondAttribute="top" constant="8" id="459-JF-uaB"/>
-                            <constraint firstItem="pJq-Pq-iw0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Rn-uf-Zoy"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pJq-Pq-iw0" secondAttribute="bottom" constant="32" id="89B-F6-aKb"/>
+                            <constraint firstItem="23Z-Og-yTH" firstAttribute="top" secondItem="jJX-f0-5m9" secondAttribute="top" id="459-JF-uaB"/>
+                            <constraint firstItem="pJq-Pq-iw0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="5Rn-uf-Zoy"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pJq-Pq-iw0" secondAttribute="bottom" constant="16" id="89B-F6-aKb"/>
                             <constraint firstItem="pJq-Pq-iw0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="bo5-nb-m7e"/>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="trailing" secondItem="jJX-f0-5m9" secondAttribute="trailing" constant="-8" id="pJF-Lu-93v"/>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="leading" secondItem="jJX-f0-5m9" secondAttribute="leading" constant="8" id="qqk-IN-zNl"/>
+                            <constraint firstItem="23Z-Og-yTH" firstAttribute="trailing" secondItem="jJX-f0-5m9" secondAttribute="trailing" id="pJF-Lu-93v"/>
+                            <constraint firstItem="23Z-Og-yTH" firstAttribute="leading" secondItem="jJX-f0-5m9" secondAttribute="leading" id="qqk-IN-zNl"/>
                             <constraint firstAttribute="trailing" secondItem="pJq-Pq-iw0" secondAttribute="trailing" constant="16" id="v3X-g7-VNj"/>
                         </constraints>
                     </view>
@@ -203,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="140" y="4"/>
+            <point key="canvasLocation" x="139.69465648854961" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
