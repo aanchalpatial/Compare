@@ -32,8 +32,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             present(alert, animated: true, completion: nil)
             return
         }
-        criteriaTextField.text = ""
-        taglistCollection.appendTag(tagName: criteria)
+        UIView.animate(withDuration: 0.5) {
+            self.taglistCollection.isHidden = false
+        } completion: { _ in
+            self.criteriaTextField.text = ""
+            self.taglistCollection.appendTag(tagName: criteria)
+        }
     }
     
     @IBOutlet weak var criteriaTextField: UITextField!
@@ -41,6 +45,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var taglistCollection: TaglistCollection!
 
     @IBAction func compareButtonPressed(_ sender: UIButton) {
+
         guard let question = questionTextField.text,
               !question.isEmpty else {
             let alert = UIAlertController(title: "Error", message: "Please ask a valid question", preferredStyle: .alert)
@@ -48,6 +53,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             present(alert, animated: true, completion: nil)
             return
         }
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
         var firstImage: UIImage?
         if let image = firstImageView.image,
            image != placeholderImage {
@@ -100,8 +107,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         addGreyBorder(firstImageView)
         addGreyBorder(secondImageView)
         addGreyBorder(responseContainerView)
+        addGreyBorder(questionTextField)
+        addGreyBorder(criteriaTextField)
         hideKeyboardWhenTappedAround()
         taglistCollection.setupTagCollection()
+        taglistCollection.isHidden = true
         shimmerStackView.isHidden = true
     }
 

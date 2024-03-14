@@ -13,13 +13,13 @@ class Theme {
  
     var cellBackGroundColor     : UIColor!   // Background color of cell
     var textFont                : UIFont!    // Tag font
-    var tagTextColor =  UIColor.white  // Tag text color
-    var tagBackgroundColor: UIColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1) // Tag background color
+    var tagTextColor =  UIColor.black  // Tag text color
+    var tagBackgroundColor: UIColor = .white // Tag background color
     var tagBorderColor = #colorLiteral(red: 0.1298420429, green: 0.1298461258, blue: 0.1298439503, alpha: 1)   // Tag border color
     var tagBorderWidth = 2.0   // Tag border width
-    var tagShadowColor          : UIColor!   // Tag shadow color
-    var tagShadowOpacity        : Float!     // Tag shadow opacity
-    var tagShadowRadius         : CGFloat!   // Tag shadow radius
+    var tagShadowColor: UIColor = .gray   // Tag shadow color
+    var tagShadowOpacity: Float = 1.0    // Tag shadow opacity
+    var tagShadowRadius : CGFloat = 15.0   // Tag shadow radius
     
     var allowSingleSelection    : Bool!      // Allow single selection
     var allowMultipleSelection  : Bool!      // Allow multiple selection
@@ -28,11 +28,11 @@ class Theme {
     var selectionTagTextColor   : UIColor!   // Tag selection text color
     
     
-    var isShadowEnabled         : Bool!      // Tag shadow enable
-    
+    var isShadowEnabled = false      // Tag shadow enable
+
     
     var isDeleteEnabled         : Bool!      // Tag able to delete
-    var closeIconTint           = UIColor.white // Tag close icon tint color
+    var closeIconTint           = UIColor.black // Tag close icon tint color
     var selectionCloseIconTint  = UIColor.red   // Tag selection icon tint color
     var closeIconWidth: CGFloat = 10.0       // Close icon width
     var closeIconHeight:CGFloat = 10.0       // Close icon height
