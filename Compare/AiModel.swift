@@ -51,26 +51,28 @@ class AiModel {
         )
     }
 
-    func compare(image1: UIImage?, image2:  UIImage?, question: String, criterias: [String]) async throws -> String? {
-        var prompt = ""
-        if image1 != nil && image2 != nil {
-            prompt += "\nLook at the following pictures and "
-        }
-        prompt += "tell me " + question
+    func compare(firstImage: UIImage, secondImage:  UIImage, question: String, criterias: [String]) async throws -> String? {
+        var prompt = "\nLook at the following pictures and tell me " + question
         if !criterias.isEmpty {
             let criteriasString = criterias.joined(separator: ", ")
             prompt += "\nbased on the following criterias: \(criteriasString)"
         }
         prompt += "\n and i won't take no for an answer"
-        if let image1 = image1, let image2 = image2 {
-            print("prompt with image: \(prompt)")
-            let response = try await visionModel.generateContent(image1, image2, prompt)
-            return response.text
-        } else {
-            print("prompt without image: \(prompt)")
-            let response = try await textModel.generateContent(prompt)
-            return response.text
+        print("prompt with image: \(prompt)")
+        let response = try await visionModel.generateContent(firstImage, secondImage, prompt)
+        return response.text
+    }
+
+    func compare(firstInput: String, secondInput:  String, question: String, criterias: [String]) async throws -> String? {
+        var prompt = "\ntell me " + question + ", " + firstInput + " or " + secondInput
+        if !criterias.isEmpty {
+            let criteriasString = criterias.joined(separator: ", ")
+            prompt += "\nbased on the following criterias: \(criteriasString)"
         }
+        prompt += "\n and i won't take no for an answer"
+        print("prompt with text: \(prompt)")
+        let response = try await textModel.generateContent(prompt)
+        return response.text
     }
 }
 
