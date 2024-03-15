@@ -8,9 +8,9 @@
 import UIKit
 import AVFoundation
 import SkeletonView
+import PhotosUI
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
 
     @IBOutlet weak var inputTypeSwitch: UISwitch!
     
@@ -33,6 +33,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
+
+    @IBAction func tutorialButtonPressed(_ sender: UIButton) {
+        let tutorial = TutorialViewController()
+        present(tutorial, animated: true)
+    }
+    
 
     @IBOutlet weak var imageStackView: UIStackView!
     
@@ -88,7 +94,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                   !secondInput.isEmpty,
                   let question = questionTextField.text,
                   !question.isEmpty else {
-                showAlert(message: "Required fields are empty.")
+                showAlert(message: "Required fields are empty")
                 return
             }
             let generator = UINotificationFeedbackGenerator()
@@ -116,12 +122,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                   firstImage != placeholderImage,
                   let secondImage = secondImageView.image,
                   secondImage != placeholderImage else {
-                showAlert(message: "Please add images.")
+                showAlert(message: "Please add both images")
                 return
             }
             guard let question = questionTextField.text,
                   !question.isEmpty else {
-                    showAlert(message: "Please ask a question.")
+                    showAlert(message: "Please ask a question")
                     return
             }
             let generator = UINotificationFeedbackGenerator()
@@ -141,7 +147,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print(error)
                     shimmerStackView.isHidden = true
                     shimmerStackView.stopSkeletonAnimation()
-                    responseTextView.text = "We are facing some error, please retry after sometime ..."
+                    responseTextView.text = "We are facing some error, please retry after sometime..."
                 }
             }
         }
@@ -202,23 +208,69 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @objc func firstImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         firstImageViewFlag = true
-        present(imagePickerVC, animated: true)
+        showEditImageActionSheet()
     }
 
     @objc func secondImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
         firstImageViewFlag = false
-        present(imagePickerVC, animated: true)
+        showEditImageActionSheet()
     }
+
+    func showEditImageActionSheet() {
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera", style: .default) { _ in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.present(self.imagePickerVC, animated: true)
+            }
+        }
+        let photoLibrary = UIAlertAction(title: "Photo Library", style: .default) { _ in
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                self.openPHPicker()
+            }
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        sheet.addAction(camera)
+        sheet.addAction(photoLibrary)
+        sheet.addAction(cancel)
+        present(sheet, animated: true, completion: nil)
+    }
+
+    private func openPHPicker() {
+       var phPickerConfig = PHPickerConfiguration(photoLibrary: .shared())
+       phPickerConfig.selectionLimit = 1
+        phPickerConfig.filter = PHPickerFilter.any(of: [.images])
+       let phPickerVC = PHPickerViewController(configuration: phPickerConfig)
+       phPickerVC.delegate = self
+       present(phPickerVC, animated: true)
+   }
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         guard let image = info[.editedImage] as? UIImage else { return }
         if(firstImageViewFlag) {
-            firstImageView.contentMode = .scaleAspectFit
+            firstImageView.contentMode = .scaleAspectFill
             firstImageView.image = image
         } else {
-            secondImageView.contentMode = .scaleAspectFit
+            secondImageView.contentMode = .scaleAspectFill
             secondImageView.image = image
+        }
+    }
+
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: .none)
+        results.forEach { result in
+            result.itemProvider.loadObject(ofClass: UIImage.self) { reading, error in
+                guard let image = reading as? UIImage, error == nil else { return }
+                DispatchQueue.main.async {
+                    if(self.firstImageViewFlag) {
+                        self.firstImageView.contentMode = .scaleAspectFill
+                        self.firstImageView.image = image
+                    } else {
+                        self.secondImageView.contentMode = .scaleAspectFill
+                        self.secondImageView.image = image
+                    }
+                }
+            }
         }
     }
 }
