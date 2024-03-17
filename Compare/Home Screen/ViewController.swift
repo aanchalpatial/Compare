@@ -15,6 +15,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var inputTypeSwitch: UISwitch!
     
     @IBAction func inputTypeSwitchToggled(_ sender: UISwitch) {
+        UserDefaults.standard.setValue(sender.isOn, forKey: "input-type-switch")
         if(sender.isOn) {
             UIView.animate(withDuration: 0.5) {
                 self.imageStackView.isHidden = true
@@ -189,6 +190,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupAnimationView()
+        inputTypeSwitch.isOn = UserDefaults.standard.bool(forKey: "input-type-switch")
         aiModel = AiModel()
         imagePickerVC = UIImagePickerController()
         imagePickerVC.sourceType = .camera
