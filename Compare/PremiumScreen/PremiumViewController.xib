@@ -33,29 +33,32 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LeR-bb-mDC">
-                    <rect key="frame" x="16" y="147" width="361" height="80"/>
+                    <rect key="frame" x="16" y="147" width="361" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gE7-3a-Zms">
-                            <rect key="frame" x="0.0" y="28" width="361" height="24.333333333333329"/>
+                            <rect key="frame" x="0.0" y="18" width="361" height="24.333333333333329"/>
                             <fontDescription key="fontDescription" name="Verdana-Italic" family="Verdana" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <constraints>
-                        <constraint firstAttribute="height" constant="80" id="bC9-2n-trF"/>
+                        <constraint firstAttribute="height" constant="60" id="bC9-2n-trF"/>
                     </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-ZZ-G8Q">
-                    <rect key="frame" x="16" y="406.66666666666669" width="361" height="39"/>
+                    <rect key="frame" x="16" y="373.66666666666669" width="361" height="105"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations! you are now a premium user. Keep comparing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHS-sh-ckF">
-                            <rect key="frame" x="35.333333333333343" y="0.0" width="290.66666666666663" height="39"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Congratulations! you are now a premium user. Keep comparing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHS-sh-ckF">
+                            <rect key="frame" x="35.333333333333343" y="0.0" width="290.66666666666663" height="105"/>
                             <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="105" id="KW1-qn-65P"/>
+                    </constraints>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="v11-kF-cnB">
                     <rect key="frame" x="16" y="402" width="361" height="48"/>

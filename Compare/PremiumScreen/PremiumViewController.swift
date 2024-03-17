@@ -85,7 +85,7 @@ class PremiumViewController: UIViewController {
         alreadyBoughtPremiumStackView.isHidden = false
         let diamondAnimationView = LottieAnimationView(name: "diamond")
         alreadyBoughtPremiumStackView.insertArrangedSubview(diamondAnimationView, at: 0)
-        diamondAnimationView.loopMode = .repeat(2)
+        diamondAnimationView.loopMode = .loop
         diamondAnimationView.play()
     }
 
