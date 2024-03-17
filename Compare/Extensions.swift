@@ -9,9 +9,9 @@ import Foundation
 
 extension UserDefaults {
     enum Keys: String, CaseIterable {
-        case fullName = "full.name"
-        case inputTypeSwitch = "input.type.switch"
-        case alreadyPremiumUser = "already.premium.user"
+        case fullName
+        case inputTypeSwitch
+        case alreadyPremiumUser
     }
 
     func reset() {

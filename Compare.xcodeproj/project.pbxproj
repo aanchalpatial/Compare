@@ -10,10 +10,11 @@
 		0D37B39F2BA30FA400023731 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0D37B39E2BA30FA400023731 /* SkeletonView */; };
 		0D4D81412BA7254C0059706D /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0D4D81402BA7254C0059706D /* Lottie */; };
 		0D4D81472BA727F70059706D /* welcome-colorful.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D81422BA727F60059706D /* welcome-colorful.json */; };
-		0D4D81482BA727F70059706D /* loader-square.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D81432BA727F60059706D /* loader-square.json */; };
 		0D4D81492BA727F70059706D /* loader-cube.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D81442BA727F60059706D /* loader-cube.json */; };
 		0D4D814A2BA727F70059706D /* loader-infinity.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D81452BA727F70059706D /* loader-infinity.json */; };
 		0D4D814B2BA727F70059706D /* welcome.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D81462BA727F70059706D /* welcome.json */; };
+		0D4D814E2BA777600059706D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4D814D2BA777600059706D /* Extensions.swift */; };
+		0D4D81502BA7824E0059706D /* diamond.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D4D814F2BA7824E0059706D /* diamond.json */; };
 		0D8378752BA44F3F00A91D3D /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D8378732BA44F3F00A91D3D /* TutorialViewController.swift */; };
 		0D8378762BA44F3F00A91D3D /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D8378742BA44F3F00A91D3D /* TutorialViewController.xib */; };
 		0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0152BA18B0B006A528A /* AppDelegate.swift */; };
@@ -39,10 +40,11 @@
 
 /* Begin PBXFileReference section */
 		0D4D81422BA727F60059706D /* welcome-colorful.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "welcome-colorful.json"; sourceTree = "<group>"; };
-		0D4D81432BA727F60059706D /* loader-square.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-square.json"; sourceTree = "<group>"; };
 		0D4D81442BA727F60059706D /* loader-cube.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-cube.json"; sourceTree = "<group>"; };
 		0D4D81452BA727F70059706D /* loader-infinity.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loader-infinity.json"; sourceTree = "<group>"; };
 		0D4D81462BA727F70059706D /* welcome.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = welcome.json; sourceTree = "<group>"; };
+		0D4D814D2BA777600059706D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0D4D814F2BA7824E0059706D /* diamond.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = diamond.json; sourceTree = "<group>"; };
 		0D8378732BA44F3F00A91D3D /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		0D8378742BA44F3F00A91D3D /* TutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
 		0DB1D0122BA18B0B006A528A /* CompareIt!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CompareIt!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -89,9 +91,9 @@
 			children = (
 				0D4D81442BA727F60059706D /* loader-cube.json */,
 				0D4D81452BA727F70059706D /* loader-infinity.json */,
-				0D4D81432BA727F60059706D /* loader-square.json */,
 				0D4D81422BA727F60059706D /* welcome-colorful.json */,
 				0D4D81462BA727F70059706D /* welcome.json */,
+				0D4D814F2BA7824E0059706D /* diamond.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -110,6 +112,7 @@
 			children = (
 				0DB1D0192BA18B0B006A528A /* ViewController.swift */,
 				0DB1D01B2BA18B0B006A528A /* Main.storyboard */,
+				0DB1D03E2BA20ACF006A528A /* Taglist */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -138,10 +141,10 @@
 				0DB1D0152BA18B0B006A528A /* AppDelegate.swift */,
 				0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */,
 				0DB1D02C2BA18B89006A528A /* AiModel.swift */,
+				0D4D814D2BA777600059706D /* Extensions.swift */,
 				0D8378782BA44F6100A91D3D /* Home Screen */,
 				0D8378772BA44F5300A91D3D /* Tutorial Screen */,
 				0DD201F52BA48E6B00BA0D05 /* PremiumScreen */,
-				0DB1D03E2BA20ACF006A528A /* Taglist */,
 				0D4D814C2BA727FE0059706D /* Resources */,
 				0DB1D0322BA1CAEE006A528A /* Keys.plist */,
 				0DB1D01E2BA18B0C006A528A /* Assets.xcassets */,
@@ -252,10 +255,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				0D4D814B2BA727F70059706D /* welcome.json in Resources */,
-				0D4D81482BA727F70059706D /* loader-square.json in Resources */,
 				0D4D81492BA727F70059706D /* loader-cube.json in Resources */,
 				0D8378762BA44F3F00A91D3D /* TutorialViewController.xib in Resources */,
 				0DB1D0222BA18B0C006A528A /* LaunchScreen.storyboard in Resources */,
+				0D4D81502BA7824E0059706D /* diamond.json in Resources */,
 				0DD201F42BA48E6500BA0D05 /* PremiumViewController.xib in Resources */,
 				0DB1D01F2BA18B0C006A528A /* Assets.xcassets in Resources */,
 				0D4D81472BA727F70059706D /* welcome-colorful.json in Resources */,
@@ -282,6 +285,7 @@
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
 				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
 				0DD201F72BA4914800BA0D05 /* KeychainItem.swift in Sources */,
+				0D4D814E2BA777600059706D /* Extensions.swift in Sources */,
 				0DB1D03B2BA20AC6006A528A /* CloseButton.swift in Sources */,
 				0DB1D02D2BA18B89006A528A /* AiModel.swift in Sources */,
 				0DB1D0392BA20AC6006A528A /* TaglistCollection.swift in Sources */,

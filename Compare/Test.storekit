@@ -5,7 +5,7 @@
   ],
   "products" : [
     {
-      "displayPrice" : "0.99",
+      "displayPrice" : "1.0",
       "familyShareable" : false,
       "internalID" : "8340F144",
       "localizations" : [
@@ -15,7 +15,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.compareit.premium",
+      "productID" : "compareit.premium.access",
       "referenceName" : "Premium",
       "type" : "NonConsumable"
     }

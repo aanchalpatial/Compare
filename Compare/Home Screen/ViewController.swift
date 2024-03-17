@@ -15,7 +15,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var inputTypeSwitch: UISwitch!
     
     @IBAction func inputTypeSwitchToggled(_ sender: UISwitch) {
-        UserDefaults.standard.setValue(sender.isOn, forKey: "input-type-switch")
+        UserDefaults.standard.setValue(sender.isOn, forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
         if(sender.isOn) {
             UIView.animate(withDuration: 0.5) {
                 self.imageStackView.isHidden = true
@@ -94,6 +94,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var loaderStackView: UIStackView!
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
+        guard freePremiumDaysLeft > 0 else {
+            let alert = UIAlertController(title: "Buy premium", message: "Free trail has expired", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                self.premiumButtonPressed(sender)
+            }))
+            present(alert, animated: true, completion: nil)
+            return
+        }
         if inputTypeSwitch.isOn {
             // text
             guard let firstInput = firstInputTextField.text,
@@ -102,7 +110,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                   !secondInput.isEmpty,
                   let question = questionTextField.text,
                   !question.isEmpty else {
-                showAlert(message: "Required fields are empty")
+                showAlert(title: "Input missing", message: "Required fields are empty")
                 return
             }
             let generator = UINotificationFeedbackGenerator()
@@ -126,12 +134,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                   firstImage != placeholderImage,
                   let secondImage = secondImageView.image,
                   secondImage != placeholderImage else {
-                showAlert(message: "Please add both images")
+                showAlert(title: "Input missing", message: "Please add both images")
                 return
             }
             guard let question = questionTextField.text,
                   !question.isEmpty else {
-                    showAlert(message: "Please ask a question")
+                showAlert(title: "Input missing", message: "Please ask a question")
                     return
             }
             let generator = UINotificationFeedbackGenerator()
@@ -218,6 +226,11 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         criteriaButton.layer.cornerRadius = 0
         compareButton.layer.cornerRadius = 0
         premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
+        if freePremiumDaysLeft == 0 {
+            premiumButton.tintColor = .systemRed
+        } else {
+            premiumButton.tintColor = .systemBlue
+        }
     }
 
     private func setupAnimationView() {
@@ -227,8 +240,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         loaderStackView.isHidden = true
     }
 
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+    private func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         return
@@ -273,7 +286,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let alert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 KeychainItem.deleteUserIdentifierFromKeychain()
-                UserDefaults.standard.removeObject(forKey: "full-name")
+                UserDefaults.standard.reset()
             }))
             self.present(alert, animated: true, completion: nil)
         }

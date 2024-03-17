@@ -11,10 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumViewController" customModule="CompareIt_" customModuleProvider="target">
             <connections>
+                <outlet property="alreadyBoughtPremiumStackView" destination="dCe-ZZ-G8Q" id="uu1-0w-M99"/>
+                <outlet property="buyPremiumStackView" destination="Buf-pn-ltO" id="CPX-nd-FVf"/>
                 <outlet property="freeTrialLabel" destination="lm5-4h-Hq5" id="dKd-qX-fFM"/>
                 <outlet property="fullNameLabel" destination="gE7-3a-Zms" id="J3O-1x-IaI"/>
                 <outlet property="loginProviderStackView" destination="v11-kF-cnB" id="ZIG-h6-Ayk"/>
-                <outlet property="premiumStackView" destination="Buf-pn-ltO" id="CPX-nd-FVf"/>
                 <outlet property="restorePremiumButton" destination="Ptf-fB-VaG" id="x56-2K-IM3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="welcomeStackView" destination="LeR-bb-mDC" id="eVd-I9-wjR"/>
@@ -44,6 +45,17 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="80" id="bC9-2n-trF"/>
                     </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dCe-ZZ-G8Q">
+                    <rect key="frame" x="16" y="406.66666666666669" width="361" height="39"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Congratulations! you are now a premium user. Keep comparing." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gHS-sh-ckF">
+                            <rect key="frame" x="35.333333333333343" y="0.0" width="290.66666666666663" height="39"/>
+                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                 </stackView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="v11-kF-cnB">
                     <rect key="frame" x="16" y="402" width="361" height="48"/>
@@ -122,11 +134,15 @@
             <constraints>
                 <constraint firstItem="LeR-bb-mDC" firstAttribute="top" secondItem="RmR-22-L0G" secondAttribute="bottom" constant="8" id="0O7-xp-wMP"/>
                 <constraint firstItem="LeR-bb-mDC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7I9-Sx-CcS"/>
+                <constraint firstItem="dCe-ZZ-G8Q" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="81P-78-HO1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="v11-kF-cnB" secondAttribute="trailing" constant="16" id="8CO-6H-QhJ"/>
                 <constraint firstItem="v11-kF-cnB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9dx-LO-vv8"/>
+                <constraint firstAttribute="trailing" secondItem="dCe-ZZ-G8Q" secondAttribute="trailing" constant="16" id="BYp-TL-DJ0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Buf-pn-ltO" secondAttribute="bottom" constant="32" id="HLD-GN-XBQ"/>
                 <constraint firstItem="RmR-22-L0G" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="KQI-Ms-woe"/>
+                <constraint firstItem="dCe-ZZ-G8Q" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="WDa-gj-vcY"/>
                 <constraint firstItem="v11-kF-cnB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Xfq-rb-lh0"/>
+                <constraint firstItem="dCe-ZZ-G8Q" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bbm-QG-vQk"/>
                 <constraint firstItem="Buf-pn-ltO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dGc-AA-dHt"/>
                 <constraint firstItem="v11-kF-cnB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dxc-WG-YNd"/>
                 <constraint firstItem="RmR-22-L0G" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fSU-eL-RBl"/>

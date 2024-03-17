@@ -13,27 +13,23 @@ import Lottie
 class PremiumViewController: UIViewController {
 
     @IBOutlet weak var welcomeStackView: UIStackView!
-    
+    @IBOutlet weak var alreadyBoughtPremiumStackView: UIStackView!
     @IBOutlet weak var fullNameLabel: UILabel!
-
     @IBOutlet weak var loginProviderStackView: UIStackView!
-
-    @IBOutlet weak var premiumStackView: UIStackView!
-    
+    @IBOutlet weak var buyPremiumStackView: UIStackView!
     @IBOutlet weak var freeTrialLabel: UILabel!
-
     @IBAction func buyPremiumPressed(_ sender: UIButton) {
         buyPremium()
     }
-
-    private var product: SKProduct?
-    private let premiumAccessIdentifier = "PremiumAccessEnabled"
-    private let freePremiumDaysLeft: Int
     @IBOutlet weak var restorePremiumButton: UIButton!
-    
     @IBAction func restorePremiumPressed(_ sender: UIButton) {
         restorePremium()
     }
+
+    private var product: SKProduct?
+    private let freePremiumDaysLeft: Int
+    // This key should match with the key in app store connect
+    private let premiumAccessProductId = "compareit.premium.access"
 
     init(freePremiumDaysLeft: Int) {
         self.freePremiumDaysLeft = freePremiumDaysLeft
@@ -63,26 +59,34 @@ class PremiumViewController: UIViewController {
                 break
             }
         }
-        // Do any additional setup after loading the view.
     }
-
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        performExistingAccountSetupFlows()
-//    }
 
     func setupForPremium() {
         setupWelcomeStackView()
-        premiumStackView.isHidden = false
         loginProviderStackView.isHidden = true
-        restorePremiumButton.addGreyBorder()
-        freeTrialLabel.text = "Free Trial! \(freePremiumDaysLeft) Days Left"
-        if freePremiumDaysLeft == 0 {
-            freeTrialLabel.textColor = .systemRed
+        if alreadyPremiumUser() {
+            setupForAlreadyBoughtPremium()
         } else {
-            freeTrialLabel.textColor = .systemBlue
+            alreadyBoughtPremiumStackView.isHidden = true
+            fetchInappPremiumAccessProduct()
+            buyPremiumStackView.isHidden = false
+            restorePremiumButton.addGreyBorder()
+            freeTrialLabel.text = "Free Trial! \(freePremiumDaysLeft) Days Left"
+            if freePremiumDaysLeft == 0 {
+                freeTrialLabel.textColor = .systemRed
+            } else {
+                freeTrialLabel.textColor = .systemBlue
+            }
         }
-        fetchProducts()
+    }
+
+    private func setupForAlreadyBoughtPremium() {
+        buyPremiumStackView.isHidden = true
+        alreadyBoughtPremiumStackView.isHidden = false
+        let diamondAnimationView = LottieAnimationView(name: "diamond")
+        alreadyBoughtPremiumStackView.insertArrangedSubview(diamondAnimationView, at: 0)
+        diamondAnimationView.loopMode = .repeat(2)
+        diamondAnimationView.play()
     }
 
     func setupWelcomeStackView() {
@@ -91,32 +95,19 @@ class PremiumViewController: UIViewController {
         welcomeStackView.insertArrangedSubview(welcomeAnimationView, at: 0)
         welcomeAnimationView.loopMode = .loop
         welcomeAnimationView.play()
-        fullNameLabel.text = UserDefaults.standard.string(forKey: "full-name")
+        fullNameLabel.text = UserDefaults.standard.string(forKey: UserDefaults.Keys.fullName.rawValue)
     }
 
     func setupProviderLoginView() {
         welcomeStackView.isHidden = true
-        premiumStackView.isHidden = true
+        buyPremiumStackView.isHidden = true
         loginProviderStackView.isHidden = false
         let authorizationButton = ASAuthorizationAppleIDButton()
         authorizationButton.addTarget(self, action: #selector(handleAuthorizationAppleIDButtonPress), for: .touchUpInside)
         self.loginProviderStackView.addArrangedSubview(authorizationButton)
     }
 
-//    func performExistingAccountSetupFlows() {
-//        // Prepare requests for both Apple ID and password providers.
-//        let requests = [ASAuthorizationAppleIDProvider().createRequest(),
-//                        ASAuthorizationPasswordProvider().createRequest()]
-//
-//        // Create an authorization controller with the given requests.
-//        let authorizationController = ASAuthorizationController(authorizationRequests: requests)
-//        authorizationController.delegate = self
-//        authorizationController.presentationContextProvider = self
-//        authorizationController.performRequests()
-//    }
-
-    @objc
-    func handleAuthorizationAppleIDButtonPress() {
+    @objc func handleAuthorizationAppleIDButtonPress() {
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
@@ -128,6 +119,7 @@ class PremiumViewController: UIViewController {
     }
 }
 
+// MARK: - Sign in with apple
 extension PremiumViewController: ASAuthorizationControllerDelegate {
     /// - Tag: did_complete_authorization
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -141,13 +133,12 @@ extension PremiumViewController: ASAuthorizationControllerDelegate {
 
             // For the purpose of this demo app, store the `userIdentifier` in the keychain.
             self.saveUserInKeychain(userIdentifier)
-            UserDefaults.standard.set(fullName?.givenName, forKey: "full-name")
+            UserDefaults.standard.set(fullName?.givenName, forKey: UserDefaults.Keys.fullName.rawValue)
 
             // For the purpose of this demo app, show the Apple ID credential information in the `ResultViewController`.
             DispatchQueue.main.async {
                 self.setupForPremium()
             }
-//            self.showResultViewController(userIdentifier: userIdentifier, fullName: fullName, email: email)
 
         case let passwordCredential as ASPasswordCredential:
 
@@ -167,30 +158,10 @@ extension PremiumViewController: ASAuthorizationControllerDelegate {
 
     private func saveUserInKeychain(_ userIdentifier: String) {
         do {
-            try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").saveItem(userIdentifier)
+            try KeychainItem(service: KeychainItem.Constant.service, account: KeychainItem.Constant.account).saveItem(userIdentifier)
         } catch {
             print("Unable to save userIdentifier to keychain.")
         }
-    }
-
-    private func showResultViewController(userIdentifier: String, fullName: PersonNameComponents?, email: String?) {
-//        guard let viewController = self.presentingViewController as? ResultViewController
-//            else { return }
-//
-//        DispatchQueue.main.async {
-//            viewController.userIdentifierLabel.text = userIdentifier
-//            if let givenName = fullName?.givenName {
-//                viewController.givenNameLabel.text = givenName
-//            }
-//            if let familyName = fullName?.familyName {
-//                viewController.familyNameLabel.text = familyName
-//            }
-//            if let email = email {
-//                viewController.emailLabel.text = email
-//            }
-//            self.dismiss(animated: true, completion: nil)
-//        }
-        print("login success: \(fullName?.givenName ?? "-1")")
     }
 
     private func showPasswordCredentialAlert(username: String, password: String) {
@@ -215,19 +186,33 @@ extension PremiumViewController: ASAuthorizationControllerPresentationContextPro
     }
 }
 
+// MARK: - In-app purchase
 extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
-    func fetchProducts() {
-        let request = SKProductsRequest(productIdentifiers: ["com.compareit.premium"])
+    func fetchInappPremiumAccessProduct() {
+        let request = SKProductsRequest(productIdentifiers: ["compareit.premium.access"])
         request.delegate = self
         request.start()
     }
 
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         product = response.products.first
+        print("🍎 fetched product: = \(product?.price)")
     }
-    
+
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        print("🍎Error for request: \(error.localizedDescription)")
+    }
+
+    private func alreadyPremiumUser() -> Bool {
+        UserDefaults.standard.bool(forKey: UserDefaults.Keys.alreadyPremiumUser.rawValue)
+    }
+
     func buyPremium() {
+        guard !alreadyPremiumUser() else {
+            print("🍎 already a premium, no need to buy again")
+            return
+        }
         if let product = product {
             let payment = SKPayment(product: product)
             SKPaymentQueue.default().add(payment)
@@ -235,17 +220,32 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
     }
 
     func restorePremium() {
+        guard !alreadyPremiumUser() else {
+            print("🍎 already a premium, no need to restore")
+            return
+        }
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
 
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
         transactions.forEach({
             switch $0.transactionState {
-            case .purchasing, .deferred:
+            case .purchasing:
+                print("🍎 premium PURCHASING")
                 queue.finishTransaction($0)
-            case .purchased, .restored:
+            case .deferred:
+                print("🍎 premium DEFERRED")
+                queue.finishTransaction($0)
+            case .purchased:
+                print("🍎 premium PURCHASED")
+                updateAppForPremiumAccess()
+                queue.finishTransaction($0)
+            case .restored:
+                updateAppForPremiumAccess()
+                print("🍎 premium RESTORED")
                 queue.finishTransaction($0)
             case .failed:
+                print("🍎 premium FAILED")
                 queue.finishTransaction($0)
             @unknown default:
                 break
@@ -254,11 +254,11 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
     }
     
     func havePremiumAccess() -> Bool {
-        UserDefaults.standard.bool(forKey: premiumAccessIdentifier)
+        UserDefaults.standard.bool(forKey: UserDefaults.Keys.alreadyPremiumUser.rawValue)
     }
 
     func updateAppForPremiumAccess() {
-        UserDefaults.standard.set(true, forKey: premiumAccessIdentifier)
+        UserDefaults.standard.set(true, forKey: UserDefaults.Keys.alreadyPremiumUser.rawValue)
+        setupForAlreadyBoughtPremium()
     }
-
 }

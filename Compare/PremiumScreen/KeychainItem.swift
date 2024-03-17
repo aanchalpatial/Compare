@@ -132,7 +132,7 @@ struct KeychainItem {
      */
     static var currentUserIdentifier: String {
         do {
-            let storedIdentifier = try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").readItem()
+            let storedIdentifier = try KeychainItem(service: Constant.service, account: Constant.account).readItem()
             return storedIdentifier
         } catch {
             return ""
@@ -141,9 +141,16 @@ struct KeychainItem {
 
     static func deleteUserIdentifierFromKeychain() {
         do {
-            try KeychainItem(service: "com.example.apple-samplecode.juice", account: "userIdentifier").deleteItem()
+            try KeychainItem(service: Constant.service, account: Constant.account).deleteItem()
         } catch {
-            print("Unable to delete userIdentifier from keychain")
+            fatalError("Unable to delete userIdentifier from keychain")
         }
+    }
+}
+
+extension KeychainItem {
+    enum Constant {
+        static let service = "compareIt.user.details.service"
+        static let account = "user.identifier"
     }
 }
