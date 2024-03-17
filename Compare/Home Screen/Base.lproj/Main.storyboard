@@ -211,79 +211,23 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="23Z-Og-yTH">
-                                <rect key="frame" x="16" y="730.33333333333337" width="361" height="88"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BgH-sf-7fX">
-                                        <rect key="frame" x="0.0" y="0.0" width="361" height="16"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kFx-yA-1jt">
-                                        <rect key="frame" x="0.0" y="24" width="361" height="16"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="szQ-5N-DXz">
-                                        <rect key="frame" x="0.0" y="48" width="361" height="16"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="39C-4r-wbO">
-                                        <rect key="frame" x="0.0" y="72" width="361" height="16"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGw-9k-0fx">
-                                                <rect key="frame" x="0.0" y="0.0" width="180.66666666666666" height="16"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ySU-2M-pay">
-                                                <rect key="frame" x="180.66666666666663" y="0.0" width="180.33333333333337" height="16"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="NO"/>
-                                                </userDefinedRuntimeAttributes>
-                                            </view>
-                                        </subviews>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                        </userDefinedRuntimeAttributes>
-                                    </stackView>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="88" id="Q7m-fH-X6b"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVA-J7-xsF">
-                                <rect key="frame" x="180.66666666666666" y="644.33333333333337" width="32" height="32"/>
+                                <rect key="frame" x="96.666666666666686" y="730.33333333333337" width="200" height="200"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="32" id="Uhy-rP-dgr"/>
-                                    <constraint firstAttribute="width" constant="32" id="owp-d2-18i"/>
+                                    <constraint firstAttribute="height" constant="200" id="5sD-HD-mn5"/>
+                                    <constraint firstAttribute="width" constant="200" id="I36-rw-2hl"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="top" secondItem="jJX-f0-5m9" secondAttribute="top" id="459-JF-uaB"/>
+                            <constraint firstItem="HVA-J7-xsF" firstAttribute="top" secondItem="jJX-f0-5m9" secondAttribute="top" id="33O-go-wAO"/>
                             <constraint firstItem="pJq-Pq-iw0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="5Rn-uf-Zoy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="pJq-Pq-iw0" secondAttribute="bottom" constant="16" id="89B-F6-aKb"/>
                             <constraint firstItem="pJq-Pq-iw0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="16" id="bo5-nb-m7e"/>
-                            <constraint firstItem="HVA-J7-xsF" firstAttribute="centerY" secondItem="Gfu-MJ-VrT" secondAttribute="centerY" id="g6m-m8-uSz"/>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="trailing" secondItem="jJX-f0-5m9" secondAttribute="trailing" id="pJF-Lu-93v"/>
-                            <constraint firstItem="23Z-Og-yTH" firstAttribute="leading" secondItem="jJX-f0-5m9" secondAttribute="leading" id="qqk-IN-zNl"/>
+                            <constraint firstItem="HVA-J7-xsF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ndd-N0-dxh"/>
                             <constraint firstAttribute="trailing" secondItem="pJq-Pq-iw0" secondAttribute="trailing" constant="16" id="v3X-g7-VNj"/>
-                            <constraint firstItem="HVA-J7-xsF" firstAttribute="centerX" secondItem="Gfu-MJ-VrT" secondAttribute="centerX" id="wTx-8h-Qll"/>
                         </constraints>
                     </view>
                     <connections>
@@ -301,7 +245,6 @@
                         <outlet property="responseTextView" destination="xAj-68-92f" id="vqK-uK-LUY"/>
                         <outlet property="secondImageView" destination="OTL-Dl-l79" id="gCr-MD-Xm1"/>
                         <outlet property="secondInputTextField" destination="8LH-T0-4LN" id="Z9o-G0-BAH"/>
-                        <outlet property="shimmerStackView" destination="23Z-Og-yTH" id="P3N-0q-qco"/>
                         <outlet property="taglistCollection" destination="ywg-d0-Dwh" id="rur-9r-ygw"/>
                         <outlet property="textStackView" destination="44b-ZV-ptA" id="1nt-Y8-7mv"/>
                     </connections>

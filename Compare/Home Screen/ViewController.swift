@@ -7,7 +7,6 @@
 
 import UIKit
 import AVFoundation
-import SkeletonView
 import PhotosUI
 import Lottie
 
@@ -52,8 +51,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var responseTextView: UITextView!
 
     @IBOutlet weak var responseContainerView: UIView!
-
-    @IBOutlet weak var shimmerStackView: UIStackView!
     
     @IBOutlet weak var criteriaButton: UIButton!
     
@@ -121,7 +118,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     print(error)
                     responseTextView.text = "We are facing some error, please retry after sometime ..."
                 }
-//                stopLoadingAnimations()
+                stopLoadingAnimations()
             }
         } else {
             guard let firstImage = firstImageView.image,
@@ -157,18 +154,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     private func startLoadingAnimations() {
         loaderStackView.isHidden = false
-        compareButton.titleLabel?.isHidden = true
-        compareButton.tintColor = .white
-        shimmerStackView.isHidden = false
-        shimmerStackView.showAnimatedSkeleton()
         loaderAnimationView.play()
         compareButton.isUserInteractionEnabled = false
     }
 
     private func stopLoadingAnimations() {
         loaderStackView.isHidden = true
-        shimmerStackView.isHidden = true
-        shimmerStackView.stopSkeletonAnimation()
         loaderAnimationView.stop()
         compareButton.isUserInteractionEnabled = true
     }
@@ -220,7 +211,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         hideKeyboardWhenTappedAround()
         taglistCollection.setupTagCollection()
         taglistCollection.isHidden = true
-        shimmerStackView.isHidden = true
         criteriaButton.layer.cornerRadius = 0
         compareButton.layer.cornerRadius = 0
         imageStackView.isHidden = false
@@ -230,7 +220,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     private func setupAnimationView() {
         loaderAnimationView = LottieAnimationView(name: "loader-cube")
-        loaderAnimationView.contentMode = .scaleToFill
         loaderAnimationView.loopMode = .loop
         loaderStackView.addArrangedSubview(loaderAnimationView)
         loaderStackView.isHidden = true
