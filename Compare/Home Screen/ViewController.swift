@@ -191,6 +191,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // Do any additional setup after loading the view.
         setupAnimationView()
         inputTypeSwitch.isOn = UserDefaults.standard.bool(forKey: "input-type-switch")
+        imageStackView.isHidden = inputTypeSwitch.isOn
+        textStackView.isHidden = !inputTypeSwitch.isOn
         aiModel = AiModel()
         imagePickerVC = UIImagePickerController()
         imagePickerVC.sourceType = .camera
@@ -215,8 +217,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         taglistCollection.isHidden = true
         criteriaButton.layer.cornerRadius = 0
         compareButton.layer.cornerRadius = 0
-        imageStackView.isHidden = false
-        textStackView.isHidden = true
         premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
     }
 
