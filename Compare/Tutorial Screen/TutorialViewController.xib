@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TutorialViewController" customModule="Compare" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TutorialViewController" customModule="CompareIt_" customModuleProvider="target">
             <connections>
                 <outlet property="dismissImageView" destination="Snk-hH-bXo" id="kei-Eq-lfA"/>
                 <outlet property="dismissView" destination="roV-oK-rQt" id="FyA-NF-YBM"/>
@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="roV-oK-rQt">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="471.66666666666669"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="451.33333333333331"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M5Z-gX-9dJ">
-                    <rect key="frame" x="0.0" y="471.66666666666674" width="393" height="380.33333333333326"/>
+                    <rect key="frame" x="0.0" y="451.33333333333326" width="393" height="400.66666666666674"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Snk-hH-bXo">
                             <rect key="frame" x="361" y="10.666666666666664" width="24" height="19"/>
@@ -46,42 +46,73 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="iba-Nq-NGw">
-                    <rect key="frame" x="16" y="503.66666666666674" width="361" height="282.33333333333326"/>
+                    <rect key="frame" x="16" y="483.33333333333326" width="361" height="302.66666666666674"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome 🙏🤗 to CompareIt, your one-stop app for comparing anything!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iIn-vE-3Yj">
-                            <rect key="frame" x="0.0" y="0.0" width="361" height="39"/>
-                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="IfR-Kc-crZ">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="71.333333333333329"/>
+                            <subviews>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="eT5-gZ-Ox5">
+                                    <rect key="frame" x="0.0" y="0.0" width="361" height="71.333333333333329"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="ysF-K2-oeM">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="50"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Welcome 🙏 to" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VF5-ft-USy">
+                                                    <rect key="frame" x="0.0" y="0.0" width="128.66666666666666" height="50"/>
+                                                    <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="compareIt!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jP-Aj-t4s">
+                                                    <rect key="frame" x="132.66666666666666" y="0.0" width="106.66666666666666" height="50"/>
+                                                    <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tQd-uW-c4y">
+                                                    <rect key="frame" x="243.33333333333329" y="0.0" width="117.66666666666666" height="50"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your one-stop app for comparing anything!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff7-Mq-AQm">
+                                            <rect key="frame" x="0.0" y="54.000000000000057" width="361" height="17.333333333333329"/>
+                                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                        </stackView>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fbr-bm-uLW">
-                            <rect key="frame" x="0.0" y="46.999999999999943" width="361" height="8"/>
+                            <rect key="frame" x="0.0" y="79.333333333333314" width="361" height="8"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="8" id="sd1-jp-ylY"/>
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1️⃣ Toggle to &quot;Text&quot; icon on top left. Two text boxes will appear. Enter the text you want to compare in each box." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cj-vV-dDI">
-                            <rect key="frame" x="0.0" y="62.999999999999943" width="361" height="58.666666666666657"/>
-                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                            <rect key="frame" x="0.0" y="95.333333333333314" width="361" height="55"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2️⃣ Or, toggle to &quot;Image&quot; icon on top left. Two image boxes will appear. Enter the image you want to compare in each box." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AeY-g6-7iS">
-                            <rect key="frame" x="0.0" y="129.66666666666669" width="361" height="58.666666666666657"/>
-                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                            <rect key="frame" x="0.0" y="158.33333333333331" width="361" height="55"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3️⃣ Ask the question based on which you want to compare." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubN-aZ-mmn">
-                            <rect key="frame" x="0.0" y="196.33333333333331" width="361" height="39"/>
-                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                            <rect key="frame" x="0.0" y="221.33333333333331" width="361" height="36.666666666666686"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="⭐️ Bonus tip: you can also add specific target criterias for detailed comparison." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMD-gM-Wm8">
-                            <rect key="frame" x="0.0" y="243.33333333333331" width="361" height="39"/>
-                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="16"/>
+                            <rect key="frame" x="0.0" y="266.00000000000006" width="361" height="36.666666666666686"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

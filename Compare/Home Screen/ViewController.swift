@@ -9,6 +9,7 @@ import UIKit
 import AVFoundation
 import SkeletonView
 import PhotosUI
+import Lottie
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
 
@@ -33,12 +34,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
         }
     }
-
-    @IBAction func tutorialButtonPressed(_ sender: UIButton) {
-        let tutorial = TutorialViewController()
-        present(tutorial, animated: true)
-    }
-    
 
     @IBOutlet weak var imageStackView: UIStackView!
     
@@ -83,8 +78,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var taglistCollection: TaglistCollection!
 
     @IBOutlet weak var compareButton: UIButton!
-    
 
+    @IBOutlet weak var premiumButton: UIButton!
+    
+    @IBAction func premiumButtonPressed(_ sender: UIButton) {
+        let premiumViewController = PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
+        present(premiumViewController, animated: true)
+    }
+
+    @IBAction func hamburgerButtonPressed(_ sender: UIButton) {
+        showHamburgerActionSheet()
+    }
+    
+    private var loaderAnimationView: LottieAnimationView!
+
+    
+    @IBOutlet weak var loaderStackView: UIStackView!
+    
     @IBAction func compareButtonPressed(_ sender: UIButton) {
         if inputTypeSwitch.isOn {
             // text
@@ -100,22 +110,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             responseTextView.text = ""
-            shimmerStackView.isHidden = false
-            shimmerStackView.showAnimatedSkeleton()
+            startLoadingAnimations()
             Task {
                 do {
                     let response = try await aiModel.compare(firstInput: firstInput,
                                                              secondInput: secondInput,
                                                              question: question, criterias: taglistCollection.copyAllTags())
-                    shimmerStackView.isHidden = true
-                    shimmerStackView.stopSkeletonAnimation()
                     responseTextView.text = response ?? "Sorry ... no response available"
                 } catch {
                     print(error)
-                    shimmerStackView.isHidden = true
-                    shimmerStackView.stopSkeletonAnimation()
                     responseTextView.text = "We are facing some error, please retry after sometime ..."
                 }
+//                stopLoadingAnimations()
             }
         } else {
             guard let firstImage = firstImageView.image,
@@ -133,34 +139,65 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
             responseTextView.text = ""
-            shimmerStackView.isHidden = false
-            shimmerStackView.showAnimatedSkeleton()
+            startLoadingAnimations()
             Task {
                 do {
                     let response = try await aiModel.compare(firstImage: firstImage,
                                                              secondImage: secondImage,
                                                              question: question, criterias: taglistCollection.copyAllTags())
-                    shimmerStackView.isHidden = true
-                    shimmerStackView.stopSkeletonAnimation()
                     responseTextView.text = response ?? "Sorry ... no response available"
                 } catch {
                     print(error)
-                    shimmerStackView.isHidden = true
-                    shimmerStackView.stopSkeletonAnimation()
                     responseTextView.text = "We are facing some error, please retry after sometime..."
                 }
+                stopLoadingAnimations()
             }
         }
+    }
+
+    private func startLoadingAnimations() {
+        loaderStackView.isHidden = false
+        compareButton.titleLabel?.isHidden = true
+        compareButton.tintColor = .white
+        shimmerStackView.isHidden = false
+        shimmerStackView.showAnimatedSkeleton()
+        loaderAnimationView.play()
+        compareButton.isUserInteractionEnabled = false
+    }
+
+    private func stopLoadingAnimations() {
+        loaderStackView.isHidden = true
+        shimmerStackView.isHidden = true
+        shimmerStackView.stopSkeletonAnimation()
+        loaderAnimationView.stop()
+        compareButton.isUserInteractionEnabled = true
     }
 
     private var aiModel: AiModel!
     private var imagePickerVC: UIImagePickerController!
     private var firstImageViewFlag = true
     private let placeholderImage = UIImage(systemName: "plus")!
+    private let maxFreePremiumDays = 14
+    private var freePremiumDaysLeft: Int {
+        if let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
+            if let installDate = try! FileManager.default.attributesOfItem(atPath: documentsFolder.path)[.creationDate] as? Date,
+               let daysSinceInstallation = Calendar.current.dateComponents([.day], from: installDate, to: Date()).day {
+                if daysSinceInstallation <= maxFreePremiumDays {
+                    return maxFreePremiumDays - daysSinceInstallation
+                } else {
+                    return 0
+                }
+            }
+        }
+        return maxFreePremiumDays
+    }
+
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupAnimationView()
         aiModel = AiModel()
         imagePickerVC = UIImagePickerController()
         imagePickerVC.sourceType = .camera
@@ -174,13 +211,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         secondImageView.addGestureRecognizer(secondTapGesture)
         firstImageView.image = placeholderImage
         secondImageView.image = placeholderImage
-        addGreyBorder(firstImageView)
-        addGreyBorder(secondImageView)
-//        addGreyBorder(responseContainerView)
-        addGreyBorder(questionTextField)
-        addGreyBorder(criteriaTextField)
-        addGreyBorder(firstInputTextField)
-        addGreyBorder(secondInputTextField)
+        firstImageView.addGreyBorder()
+        secondImageView.addGreyBorder()
+        questionTextField.addGreyBorder()
+        criteriaTextField.addGreyBorder()
+        firstInputTextField.addGreyBorder()
+        secondInputTextField.addGreyBorder()
         hideKeyboardWhenTappedAround()
         taglistCollection.setupTagCollection()
         taglistCollection.isHidden = true
@@ -189,6 +225,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         compareButton.layer.cornerRadius = 0
         imageStackView.isHidden = false
         textStackView.isHidden = true
+        premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
+    }
+
+    private func setupAnimationView() {
+        loaderAnimationView = LottieAnimationView(name: "loader-cube")
+        loaderAnimationView.contentMode = .scaleToFill
+        loaderAnimationView.loopMode = .loop
+        loaderStackView.addArrangedSubview(loaderAnimationView)
+        loaderStackView.isHidden = true
     }
 
     private func showAlert(message: String) {
@@ -196,14 +241,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         return
-    }
-
-    private func addGreyBorder(_ view: UIView) {
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.masksToBounds = true
-        view.contentMode = .scaleToFill
-        view.layer.borderWidth = 2
-        view.contentMode = .center
     }
 
     @objc func firstImageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
@@ -231,6 +268,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         sheet.addAction(camera)
         sheet.addAction(photoLibrary)
+        sheet.addAction(cancel)
+        present(sheet, animated: true, completion: nil)
+    }
+
+    func showHamburgerActionSheet() {
+        let sheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let tutorial = UIAlertAction(title: "Tutorial", style: .default) { _ in
+            let tutorial = TutorialViewController()
+            self.present(tutorial, animated: true)
+        }
+        let logout = UIAlertAction(title: "Logout", style: .default) { _ in
+            let alert = UIAlertController(title: "Logout", message: "Are you sure?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                KeychainItem.deleteUserIdentifierFromKeychain()
+                UserDefaults.standard.removeObject(forKey: "full-name")
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        sheet.addAction(tutorial)
+        sheet.addAction(logout)
         sheet.addAction(cancel)
         present(sheet, animated: true, completion: nil)
     }
@@ -285,5 +343,15 @@ extension UIViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension UIView {
+    func addGreyBorder() {
+        layer.borderColor = UIColor.gray.cgColor
+        layer.masksToBounds = true
+        contentMode = .scaleToFill
+        layer.borderWidth = 2
+        contentMode = .center
     }
 }

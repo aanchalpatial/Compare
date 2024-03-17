@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PremiumViewController" customModule="CompareIt_" customModuleProvider="target">
+            <connections>
+                <outlet property="freeTrialLabel" destination="lm5-4h-Hq5" id="dKd-qX-fFM"/>
+                <outlet property="fullNameLabel" destination="gE7-3a-Zms" id="J3O-1x-IaI"/>
+                <outlet property="loginProviderStackView" destination="v11-kF-cnB" id="ZIG-h6-Ayk"/>
+                <outlet property="premiumStackView" destination="Buf-pn-ltO" id="CPX-nd-FVf"/>
+                <outlet property="restorePremiumButton" destination="Ptf-fB-VaG" id="x56-2K-IM3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="welcomeStackView" destination="LeR-bb-mDC" id="eVd-I9-wjR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="compareIt!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmR-22-L0G">
+                    <rect key="frame" x="85.666666666666671" y="91" width="221.66666666666663" height="48"/>
+                    <fontDescription key="fontDescription" type="system" weight="black" pointSize="40"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LeR-bb-mDC">
+                    <rect key="frame" x="16" y="147" width="361" height="80"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gE7-3a-Zms">
+                            <rect key="frame" x="0.0" y="28" width="361" height="24.333333333333329"/>
+                            <fontDescription key="fontDescription" name="Verdana-Italic" family="Verdana" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="bC9-2n-trF"/>
+                    </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="v11-kF-cnB">
+                    <rect key="frame" x="16" y="402" width="361" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="Ny6-WB-JOn"/>
+                    </constraints>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="Buf-pn-ltO">
+                    <rect key="frame" x="16" y="493" width="361" height="293"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock Unlimited Comparisons with Premium!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNs-2u-CP6">
+                            <rect key="frame" x="0.0" y="0.0" width="361" height="39"/>
+                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="16"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Free Trial! 7 Days Left" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lm5-4h-Hq5">
+                            <rect key="frame" x="0.0" y="55" width="361" height="17.333333333333329"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                            <color key="textColor" name="AccentColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Premium user will get lifetime access. Compare as many things as you want, anytime, forever!" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r4f-W2-oFp">
+                            <rect key="frame" x="0.0" y="88.333333333333371" width="361" height="34.333333333333343"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcz-Bf-15M">
+                            <rect key="frame" x="0.0" y="138.66666666666663" width="361" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="v1X-by-gI0"/>
+                            </constraints>
+                            <color key="tintColor" name="primary"/>
+                            <buttonConfiguration key="configuration" style="filled" title="Upgrade to premium($1.00)" cornerStyle="fixed">
+                                <backgroundConfiguration key="background" cornerRadius="0.0"/>
+                                <fontDescription key="titleFontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="buyPremiumPressed:" destination="-1" eventType="touchUpInside" id="64s-Tj-7uo"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you did buy Premium previously, click on restore instead." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0zk-M6-Nit">
+                            <rect key="frame" x="0.0" y="198.66666666666663" width="361" height="34.333333333333343"/>
+                            <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="14"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ptf-fB-VaG">
+                            <rect key="frame" x="0.0" y="249" width="361" height="44"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="44" id="Soo-KU-u6K"/>
+                            </constraints>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <buttonConfiguration key="configuration" style="filled" cornerStyle="fixed">
+                                <backgroundConfiguration key="background" cornerRadius="0.0"/>
+                                <attributedString key="attributedTitle">
+                                    <fragment content="Restore premium">
+                                        <attributes>
+                                            <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <font key="NSFont" size="17" name="Verdana-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                            </buttonConfiguration>
+                            <connections>
+                                <action selector="restorePremiumPressed:" destination="-1" eventType="touchUpInside" id="Wax-Y5-WFd"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="LeR-bb-mDC" firstAttribute="top" secondItem="RmR-22-L0G" secondAttribute="bottom" constant="8" id="0O7-xp-wMP"/>
+                <constraint firstItem="LeR-bb-mDC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="7I9-Sx-CcS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="v11-kF-cnB" secondAttribute="trailing" constant="16" id="8CO-6H-QhJ"/>
+                <constraint firstItem="v11-kF-cnB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9dx-LO-vv8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Buf-pn-ltO" secondAttribute="bottom" constant="32" id="HLD-GN-XBQ"/>
+                <constraint firstItem="RmR-22-L0G" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="32" id="KQI-Ms-woe"/>
+                <constraint firstItem="v11-kF-cnB" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Xfq-rb-lh0"/>
+                <constraint firstItem="Buf-pn-ltO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dGc-AA-dHt"/>
+                <constraint firstItem="v11-kF-cnB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="dxc-WG-YNd"/>
+                <constraint firstItem="RmR-22-L0G" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="fSU-eL-RBl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="LeR-bb-mDC" secondAttribute="trailing" constant="16" id="iFd-rU-NFf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Buf-pn-ltO" secondAttribute="trailing" constant="16" id="rbX-a6-J0W"/>
+            </constraints>
+            <point key="canvasLocation" x="139.69465648854961" y="19.718309859154932"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.12999999523162842" green="0.12999999523162842" blue="0.12999999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
