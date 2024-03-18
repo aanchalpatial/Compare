@@ -49,9 +49,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet weak var questionTextField: UITextField!
 
-    @IBOutlet weak var responseTextView: UITextView!
-
-    @IBOutlet weak var responseContainerView: UIView!
+    @IBOutlet weak var responseTableView: UITableView!
     
     @IBOutlet weak var criteriaButton: UIButton!
     
@@ -91,7 +89,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     private var loaderAnimationView: LottieAnimationView!
 
     @IBOutlet weak var loaderStackView: UIStackView!
-    
+
+    private var sections: Sections?
+
     @IBAction func compareButtonPressed(_ sender: UIButton) {
         guard freePremiumDaysLeft > 0 else {
             let alert = UIAlertController(title: "Buy premium", message: "Free trail has expired", preferredStyle: .alert)
@@ -114,7 +114,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
-            responseTextView.text = ""
+            responseTableView.isHidden = true
             startLoadingAnimations()
             Task {
                 do {
@@ -143,7 +143,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
-            responseTextView.text = ""
+            responseTableView.isHidden = true
             startLoadingAnimations()
             Task {
                 do {
@@ -161,14 +161,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     private func handleResponse(response: String?, errorMessage: String?) {
+        responseTableView.isHidden = false
         if let response = response {
             if let sections = parseResponseJsonToSections(response: response) {
-                responseTextView.text = sections.conclusion
+                self.sections = sections
+                responseTableView.reloadData()
             } else {
-                responseTextView.text = response
+                // TODO: -
+//                responseTextView.text = response
             }
         } else {
-            responseTextView.text = "Sorry ... no response available"
+            // TODO: -
+//            responseTextView.text = "Sorry ... no response available"
         }
     }
 
@@ -304,6 +308,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         } else {
             premiumButton.tintColor = .systemBlue
         }
+        setupResponseTableView()
+    }
+
+    private func setupResponseTableView() {
+        responseTableView.delegate = self
+        responseTableView.dataSource = self
+        responseTableView.register(UINib(nibName: ParagraphTableViewCell.identifier, bundle: nil),
+                                   forCellReuseIdentifier: ParagraphTableViewCell.identifier)
+        responseTableView.separatorStyle = .none
     }
 
     private func setupAnimationView() {
@@ -430,5 +443,48 @@ extension UIView {
         contentMode = .scaleToFill
         layer.borderWidth = 2
         contentMode = .center
+    }
+}
+
+extension ViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        var count = 0
+        if sections != nil {
+            count = 3
+        }
+        return count
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Introduction"
+        } else if section == 1 {
+            return "Comparison Table"
+        } else if section == 2 {
+            return "Conclusion"
+        }
+        return ""
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let sections = sections else {
+            return UITableViewCell()
+        }
+        if indexPath.section == 0  {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ParagraphTableViewCell.identifier) as! ParagraphTableViewCell
+            cell.configure(with: sections.introduction)
+            return cell
+        } else if indexPath.section == 1 {
+            return UITableViewCell()
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: ParagraphTableViewCell.identifier) as! ParagraphTableViewCell
+            cell.configure(with: sections.conclusion)
+            return cell
+        }
+        return UITableViewCell()
     }
 }
