@@ -114,7 +114,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
-            responseTableView.isHidden = true
             startLoadingAnimations()
             Task {
                 do {
@@ -143,7 +142,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             }
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.success)
-            responseTableView.isHidden = true
             startLoadingAnimations()
             Task {
                 do {
@@ -161,7 +159,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     private func handleResponse(response: String?, errorMessage: String?) {
-        responseTableView.isHidden = false
         if let response = response {
             if let sections = parseResponseJsonToSections(response: response) {
                 self.sections = sections
