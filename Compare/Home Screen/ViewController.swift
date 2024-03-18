@@ -90,7 +90,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     private var loaderAnimationView: LottieAnimationView!
 
-    
     @IBOutlet weak var loaderStackView: UIStackView!
     
     @IBAction func compareButtonPressed(_ sender: UIButton) {
