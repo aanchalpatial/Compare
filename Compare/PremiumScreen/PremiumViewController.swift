@@ -190,7 +190,7 @@ extension PremiumViewController: ASAuthorizationControllerPresentationContextPro
 extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransactionObserver {
 
     func fetchInappPremiumAccessProduct() {
-        let request = SKProductsRequest(productIdentifiers: ["compareit.premium.access"])
+        let request = SKProductsRequest(productIdentifiers: [premiumAccessProductId])
         request.delegate = self
         request.start()
     }
