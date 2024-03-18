@@ -14,36 +14,30 @@ class AiModel {
     private let visionModel: GenerativeModel
     private let apiKey: String
     private let promptEnding = """
-            response should consist of the following 3 sections
+            response should consist of the following 3 sections & it should be structured in JSON format where key is the section name & value is info in section
             Introduction: start with introductory lines,
             Comparison Table: then compare them in a table format based on given criterias as well as onother key aspects also
             Conclusion: summarize your findings and identify which option might be a better choice
             and i won't take no for an answer, and don't say it's subjective, and don't say it's individual preference
 
         For example:
-        Question: which is a better footwear brand: nike or bata?
+        who is a better footballer, messi or ronaldo?
 
-        Response:
-        **INTRODUCTION**
-        Hey there! If you're a sneaker enthusiast, you might often find yourself torn between two popular footwear brands: Nike and Bata. 
-        Both have their strengths and weaknesses, and the "best" choice ultimately depends on your individual needs.
-        However, we'll do an in-depth comparison of Nike and Bata here, considering various factors like price, comfort, and other aspects, to help you reach an informed purchase decision.
-
-
-        **COMPARISON TABLE**
-        | Feature | Nike | Bata |
-        |---|---|---|
-        | Price | $60-$200 | $20-$100 |
-        | Comfort | 5/5 | 4/5 |
-        | Durability | 4/5 | 3/5 |
-        | Style | 5/5 | 3/5 |
-        | Brand Recognition | 5/5 | 4/5 |
-
-
-        **CONCLUSION**
-        Based on the comparison above, it's evident that both Nike and Bata have distinct advantages. Nike excels in comfort, style, and brand recognition, while Bata offers a more affordable option with decent comfort levels. Ultimately, the choice between Nike and Bata depends on your budget, priorities, and personal preferences.
-
-        If you're looking for premium footwear with the latest technology, a wider style selection, and don't mind paying a higher price, Nike is your go-to choice. However, if you prioritize affordability and still want reliable and comfortable footwear, Bata fits the bill. The brand might not offer the same level of style and technological advancements as Nike, but it delivers good value for money.
+        Response json:
+        {
+          "Introduction": "Cristiano Ronaldo and Lionel Messi are two of the greatest footballers of all time. Both players have achieved incredible success at both the club and international level, and they have both won numerous individual awards. But who is the better player? It's a question that has been debated by fans and pundits for years.",
+          "Comparison Table": [
+            ["Header","messi", "ronaldo"],
+            ["Goals","793", "819"],
+            ["Assists","350", "233"],
+            ["Trophies","41", "34"],
+            ["Ballon d'Or awards","7", "5"],
+            ["FIFA World Player of the Year awards","6", "5"],
+            ["UEFA Men's Player of the Year awards","4", "3"],
+            ["Champions League titles","4", "5"]
+          ],
+          "Conclusion": "Based on the comparison table, it is clear that both Messi and Ronaldo are exceptional players. However, Messi has a slight edge in terms of goals, assists, and trophies. Additionally, Messi has won more individual awards than Ronaldo. Therefore, I believe that Messi is the better player."
+        }
         """
 
     init() {
@@ -109,3 +103,14 @@ class AiModel {
 }
 
 
+struct Sections: Codable {
+    let introduction: String
+    let comparisonTable: [[String]]
+    let conclusion: String
+
+    enum CodingKeys: String, CodingKey {
+        case introduction = "Introduction"
+        case comparisonTable = "Comparison Table"
+        case conclusion = "Conclusion"
+    }
+}

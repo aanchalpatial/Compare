@@ -122,10 +122,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let response = try await aiModel.compare(firstInput: firstInput,
                                                              secondInput: secondInput,
                                                              question: question, criterias: taglistCollection.copyAllTags())
-                    responseTextView.text = response ?? "Sorry ... no response available"
+                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
                 } catch {
                     print(error)
-                    responseTextView.text = "We are facing some error, please retry after sometime ..."
+                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
                 }
                 stopLoadingAnimations()
             }
@@ -151,13 +151,87 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     let response = try await aiModel.compare(firstImage: firstImage,
                                                              secondImage: secondImage,
                                                              question: question, criterias: taglistCollection.copyAllTags())
-                    responseTextView.text = response ?? "Sorry ... no response available"
+                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
                 } catch {
                     print(error)
-                    responseTextView.text = "We are facing some error, please retry after sometime..."
+                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
                 }
                 stopLoadingAnimations()
             }
+        }
+    }
+
+    private func handleResponse(response: String?, errorMessage: String?) {
+        if let response = response {
+            if let sections = parseResponseJsonToSections(response: response) {
+                responseTextView.text = sections.conclusion
+            } else {
+                responseTextView.text = response
+            }
+        } else {
+            responseTextView.text = "Sorry ... no response available"
+        }
+    }
+
+    private func parseResponseJsonToSections(response: String) -> Sections? {
+        guard let jsonString = removeEscapingCharactersFromJSON(jsonString: response) else {
+            return nil
+        }
+        guard let data = response.data(using: .utf8) else {
+            return nil
+        }
+        do {
+            let sections = try JSONDecoder().decode(Sections.self, from: data)
+            return sections
+        } catch {
+            print("Error converting JSON to string array: \(error)")
+            return nil
+        }
+    }
+
+    func removeEscapingCharactersFromJSON(jsonString: String) -> String? {
+        do {
+            // Convert JSON string to data
+            let jsonData = jsonString.data(using: .utf8)!
+
+            // Parse JSON using a more lenient approach
+            let options = JSONSerialization.ReadingOptions.allowFragments
+            guard let json = try JSONSerialization.jsonObject(with: jsonData, options: options) as? [String: Any] else {
+                return nil
+            }
+
+            // Recursively remove escaping characters from strings within the JSON structure
+            func removeEscapingFromValue(value: Any) -> Any {
+                var result: Any = value
+                if let string = value as? String {
+                    let unescapedString = string.replacingOccurrences(of: "\\", with: "", options: .literal, range: nil)
+                    result = unescapedString
+                } else if let dictionary = value as? [String: Any] {
+                    var unescapedDictionary = [String: Any]()
+                    for (key, value) in dictionary {
+                        unescapedDictionary[key] = removeEscapingFromValue(value: value)
+                    }
+                    result = unescapedDictionary
+                } else if let array = value as? [Any] {
+                    var unescapedArray = [Any]()
+                    for item in array {
+                        unescapedArray.append(removeEscapingFromValue(value: item))
+                    }
+                    result = unescapedArray
+                }
+                return result
+            }
+
+            let cleanedJSON = removeEscapingFromValue(value: json)
+
+            // Serialize the cleaned JSON back to a string
+            let cleanedJSONData = try JSONSerialization.data(withJSONObject: cleanedJSON, options: .prettyPrinted)
+            let cleanedJSONString = String(data: cleanedJSONData, encoding: .utf8)!
+
+            return cleanedJSONString
+        } catch {
+            print("Error removing escaping characters: \(error)")
+            return nil
         }
     }
 
