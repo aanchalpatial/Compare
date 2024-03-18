@@ -164,19 +164,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 self.sections = sections
                 responseTableView.reloadData()
             } else {
-                // TODO: -
-//                responseTextView.text = response
+                showAlert(title: "Sorry", message: "Please try again later")
             }
         } else {
-            // TODO: -
-//            responseTextView.text = "Sorry ... no response available"
+            showAlert(title: "Sorry", message: "No response available")
         }
     }
 
     private func parseResponseJsonToSections(response: String) -> Sections? {
-        guard let jsonString = removeEscapingCharactersFromJSON(jsonString: response) else {
-            return nil
-        }
         guard let data = response.data(using: .utf8) else {
             return nil
         }
@@ -185,52 +180,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             return sections
         } catch {
             print("Error converting JSON to string array: \(error)")
-            return nil
-        }
-    }
-
-    func removeEscapingCharactersFromJSON(jsonString: String) -> String? {
-        do {
-            // Convert JSON string to data
-            let jsonData = jsonString.data(using: .utf8)!
-
-            // Parse JSON using a more lenient approach
-            let options = JSONSerialization.ReadingOptions.allowFragments
-            guard let json = try JSONSerialization.jsonObject(with: jsonData, options: options) as? [String: Any] else {
-                return nil
-            }
-
-            // Recursively remove escaping characters from strings within the JSON structure
-            func removeEscapingFromValue(value: Any) -> Any {
-                var result: Any = value
-                if let string = value as? String {
-                    let unescapedString = string.replacingOccurrences(of: "\\", with: "", options: .literal, range: nil)
-                    result = unescapedString
-                } else if let dictionary = value as? [String: Any] {
-                    var unescapedDictionary = [String: Any]()
-                    for (key, value) in dictionary {
-                        unescapedDictionary[key] = removeEscapingFromValue(value: value)
-                    }
-                    result = unescapedDictionary
-                } else if let array = value as? [Any] {
-                    var unescapedArray = [Any]()
-                    for item in array {
-                        unescapedArray.append(removeEscapingFromValue(value: item))
-                    }
-                    result = unescapedArray
-                }
-                return result
-            }
-
-            let cleanedJSON = removeEscapingFromValue(value: json)
-
-            // Serialize the cleaned JSON back to a string
-            let cleanedJSONData = try JSONSerialization.data(withJSONObject: cleanedJSON, options: .prettyPrinted)
-            let cleanedJSONString = String(data: cleanedJSONData, encoding: .utf8)!
-
-            return cleanedJSONString
-        } catch {
-            print("Error removing escaping characters: \(error)")
             return nil
         }
     }
@@ -306,6 +255,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             premiumButton.tintColor = .systemBlue
         }
         setupResponseTableView()
+        // TODO: - Remove
+        preFillValues()
+    }
+
+    private func preFillValues() {
+        firstInputTextField.text = "messi"
+        secondInputTextField.text = "ronaldo"
+        questionTextField.text = "best footballer"
     }
 
     private func setupResponseTableView() {
@@ -313,6 +270,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         responseTableView.dataSource = self
         responseTableView.register(UINib(nibName: ParagraphTableViewCell.identifier, bundle: nil),
                                    forCellReuseIdentifier: ParagraphTableViewCell.identifier)
+        responseTableView.register(UINib(nibName: ComparisonTableViewCell.identifier, bundle: nil),
+                                   forCellReuseIdentifier: ComparisonTableViewCell.identifier)
         responseTableView.separatorStyle = .none
     }
 
@@ -476,7 +435,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configure(with: sections.introduction)
             return cell
         } else if indexPath.section == 1 {
-            return UITableViewCell()
+            let cell = tableView.dequeueReusableCell(withIdentifier: ComparisonTableViewCell.identifier) as! ComparisonTableViewCell
+            cell.configure(rows: sections.comparisonTable)
+            return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ParagraphTableViewCell.identifier) as! ParagraphTableViewCell
             cell.configure(with: sections.conclusion)

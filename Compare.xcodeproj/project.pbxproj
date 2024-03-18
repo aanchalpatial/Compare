@@ -19,6 +19,8 @@
 		0D8378762BA44F3F00A91D3D /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D8378742BA44F3F00A91D3D /* TutorialViewController.xib */; };
 		0D9E778C2BA8861900357F78 /* ParagraphTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E778A2BA8861900357F78 /* ParagraphTableViewCell.swift */; };
 		0D9E778D2BA8861900357F78 /* ParagraphTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9E778B2BA8861900357F78 /* ParagraphTableViewCell.xib */; };
+		0D9E77902BA898CB00357F78 /* ComparisonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E778E2BA898CB00357F78 /* ComparisonTableViewCell.swift */; };
+		0D9E77912BA898CB00357F78 /* ComparisonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9E778F2BA898CB00357F78 /* ComparisonTableViewCell.xib */; };
 		0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0152BA18B0B006A528A /* AppDelegate.swift */; };
 		0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */; };
 		0DB1D01A2BA18B0B006A528A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0192BA18B0B006A528A /* ViewController.swift */; };
@@ -51,6 +53,8 @@
 		0D8378742BA44F3F00A91D3D /* TutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
 		0D9E778A2BA8861900357F78 /* ParagraphTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParagraphTableViewCell.swift; sourceTree = "<group>"; };
 		0D9E778B2BA8861900357F78 /* ParagraphTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ParagraphTableViewCell.xib; sourceTree = "<group>"; };
+		0D9E778E2BA898CB00357F78 /* ComparisonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparisonTableViewCell.swift; sourceTree = "<group>"; };
+		0D9E778F2BA898CB00357F78 /* ComparisonTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ComparisonTableViewCell.xib; sourceTree = "<group>"; };
 		0DB1D0122BA18B0B006A528A /* CompareIt!.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CompareIt!.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DB1D0152BA18B0B006A528A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +123,8 @@
 				0DB1D03E2BA20ACF006A528A /* Taglist */,
 				0D9E778A2BA8861900357F78 /* ParagraphTableViewCell.swift */,
 				0D9E778B2BA8861900357F78 /* ParagraphTableViewCell.xib */,
+				0D9E778E2BA898CB00357F78 /* ComparisonTableViewCell.swift */,
+				0D9E778F2BA898CB00357F78 /* ComparisonTableViewCell.xib */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -264,6 +270,7 @@
 				0D4D81492BA727F70059706D /* loader-cube.json in Resources */,
 				0D8378762BA44F3F00A91D3D /* TutorialViewController.xib in Resources */,
 				0DB1D0222BA18B0C006A528A /* LaunchScreen.storyboard in Resources */,
+				0D9E77912BA898CB00357F78 /* ComparisonTableViewCell.xib in Resources */,
 				0D4D81502BA7824E0059706D /* diamond.json in Resources */,
 				0DD201F42BA48E6500BA0D05 /* PremiumViewController.xib in Resources */,
 				0DB1D01F2BA18B0C006A528A /* Assets.xcassets in Resources */,
@@ -290,6 +297,7 @@
 				0D8378752BA44F3F00A91D3D /* TutorialViewController.swift in Sources */,
 				0DB1D03D2BA20AC6006A528A /* TagCollectionCell.swift in Sources */,
 				0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */,
+				0D9E77902BA898CB00357F78 /* ComparisonTableViewCell.swift in Sources */,
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
 				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
 				0DD201F72BA4914800BA0D05 /* KeychainItem.swift in Sources */,
