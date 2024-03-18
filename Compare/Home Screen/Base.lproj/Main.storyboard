@@ -221,10 +221,10 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HVA-J7-xsF">
-                                <rect key="frame" x="96.666666666666686" y="730.33333333333337" width="200" height="200"/>
+                                <rect key="frame" x="121.66666666666669" y="730.33333333333337" width="150" height="150"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="5sD-HD-mn5"/>
-                                    <constraint firstAttribute="width" constant="200" id="I36-rw-2hl"/>
+                                    <constraint firstAttribute="height" constant="150" id="5sD-HD-mn5"/>
+                                    <constraint firstAttribute="width" constant="150" id="I36-rw-2hl"/>
                                 </constraints>
                             </stackView>
                         </subviews>

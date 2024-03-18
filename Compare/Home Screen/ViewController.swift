@@ -198,7 +198,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupAnimationView()
-        inputTypeSwitch.isOn = UserDefaults.standard.bool(forKey: "input-type-switch")
+        inputTypeSwitch.isOn = UserDefaults.standard.bool(forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
         imageStackView.isHidden = inputTypeSwitch.isOn
         textStackView.isHidden = !inputTypeSwitch.isOn
         aiModel = AiModel()
