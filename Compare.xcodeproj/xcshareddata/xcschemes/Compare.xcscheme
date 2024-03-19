@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0DB1D0112BA18B0B006A528A"
-               BuildableName = "CompareIt!.app"
+               BuildableName = "Compare-It.app"
                BlueprintName = "Compare"
                ReferencedContainer = "container:Compare.xcodeproj">
             </BuildableReference>
@@ -44,11 +44,14 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DB1D0112BA18B0B006A528A"
-            BuildableName = "CompareIt!.app"
+            BuildableName = "Compare-It.app"
             BlueprintName = "Compare"
             ReferencedContainer = "container:Compare.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../Compare/Test.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -61,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0DB1D0112BA18B0B006A528A"
-            BuildableName = "CompareIt!.app"
+            BuildableName = "Compare-It.app"
             BlueprintName = "Compare"
             ReferencedContainer = "container:Compare.xcodeproj">
          </BuildableReference>

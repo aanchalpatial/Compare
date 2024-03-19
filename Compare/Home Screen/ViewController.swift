@@ -248,15 +248,25 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         taglistCollection.isHidden = true
         criteriaButton.layer.cornerRadius = 0
         compareButton.layer.cornerRadius = 0
-        premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
-        if freePremiumDaysLeft == 0 {
-            premiumButton.tintColor = .systemRed
-        } else {
-            premiumButton.tintColor = .systemBlue
-        }
+        setupPremiumButton()
+
         setupResponseTableView()
         // TODO: - Remove
         preFillValues()
+    }
+
+    private func setupPremiumButton() {
+        if PremiumViewController.alreadyPremiumUser() {
+            premiumButton.isHidden = true
+        } else {
+            premiumButton.isHidden = false
+            premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
+            if freePremiumDaysLeft == 0 {
+                premiumButton.tintColor = .systemRed
+            } else {
+                premiumButton.tintColor = .systemBlue
+            }
+        }
     }
 
     private func preFillValues() {
@@ -329,6 +339,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 KeychainItem.deleteUserIdentifierFromKeychain()
                 UserDefaults.standard.reset()
+                self.premiumButton.isHidden = false
             }))
             self.present(alert, animated: true, completion: nil)
         }

@@ -42,6 +42,7 @@ class PremiumViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        SKPaymentQueue.default().add(self)
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         appleIDProvider.getCredentialState(forUserID: KeychainItem.currentUserIdentifier) { (credentialState, error) in
             switch credentialState {
@@ -64,7 +65,7 @@ class PremiumViewController: UIViewController {
     func setupForPremium() {
         setupWelcomeStackView()
         loginProviderStackView.isHidden = true
-        if alreadyPremiumUser() {
+        if PremiumViewController.alreadyPremiumUser() {
             setupForAlreadyBoughtPremium()
         } else {
             alreadyBoughtPremiumStackView.isHidden = true
@@ -100,6 +101,7 @@ class PremiumViewController: UIViewController {
 
     func setupProviderLoginView() {
         welcomeStackView.isHidden = true
+        alreadyBoughtPremiumStackView.isHidden = true
         buyPremiumStackView.isHidden = true
         loginProviderStackView.isHidden = false
         let authorizationButton = ASAuthorizationAppleIDButton()
@@ -204,12 +206,12 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
         print("🍎Error for request: \(error.localizedDescription)")
     }
 
-    private func alreadyPremiumUser() -> Bool {
+    static func alreadyPremiumUser() -> Bool {
         UserDefaults.standard.bool(forKey: UserDefaults.Keys.alreadyPremiumUser.rawValue)
     }
 
     func buyPremium() {
-        guard !alreadyPremiumUser() else {
+        guard !PremiumViewController.alreadyPremiumUser() else {
             print("🍎 already a premium, no need to buy again")
             return
         }
@@ -220,7 +222,7 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
     }
 
     func restorePremium() {
-        guard !alreadyPremiumUser() else {
+        guard !PremiumViewController.alreadyPremiumUser() else {
             print("🍎 already a premium, no need to restore")
             return
         }
@@ -232,10 +234,8 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
             switch $0.transactionState {
             case .purchasing:
                 print("🍎 premium PURCHASING")
-                queue.finishTransaction($0)
             case .deferred:
                 print("🍎 premium DEFERRED")
-                queue.finishTransaction($0)
             case .purchased:
                 print("🍎 premium PURCHASED")
                 updateAppForPremiumAccess()
