@@ -1,19 +1,41 @@
 //
-//  ViewController.swift
+//  CompareViewController.swift
 //  Compare
 //
-//  Created by Aanchal Patial on 13/03/24.
+//  Created by Aanchal Patial on 25/06/24.
 //
 
 import UIKit
 import AVFoundation
 import PhotosUI
 import Lottie
+import SwiftUI
+import Foundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+protocol CompareDisplayLogic: AnyObject {
+    func startLoadingAnimations()
+    func stopLoadingAnimations()
+    func reloadTableView()
+    func showAlert(type: AlertType)
+}
+
+final class CompareViewController: UIViewController, CompareDisplayLogic, UIImagePickerControllerDelegate, UINavigationControllerDelegate, PHPickerViewControllerDelegate {
+
+    private let viewModel: CompareBusinessLogic
+
+    init() {
+        let viewModel = CompareViewModel()
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        viewModel.view = self
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     @IBOutlet weak var inputTypeSwitch: UISwitch!
-    
+
     @IBAction func inputTypeSwitchToggled(_ sender: UISwitch) {
         UserDefaults.standard.setValue(sender.isOn, forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
         if(sender.isOn) {
@@ -36,7 +58,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 
     @IBOutlet weak var imageStackView: UIStackView!
-    
+
     @IBOutlet weak var textStackView: UIStackView!
 
     @IBOutlet weak var firstImageView: UIImageView!
@@ -44,15 +66,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var secondImageView: UIImageView!
 
     @IBOutlet weak var firstInputTextField: UITextField!
-    
+
     @IBOutlet weak var secondInputTextField: UITextField!
-    
+
     @IBOutlet weak var questionTextField: UITextField!
 
     @IBOutlet weak var responseTableView: UITableView!
-    
+
     @IBOutlet weak var criteriaButton: UIButton!
-    
+
     @IBAction func addCriteriaButtonPressed(_ sender: UIButton) {
         guard let criteria = criteriaTextField.text,
               !criteria.isEmpty else {
@@ -68,32 +90,34 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.taglistCollection.appendTag(tagName: criteria)
         }
     }
-    
+
     @IBOutlet weak var criteriaTextField: UITextField!
-    
+
     @IBOutlet weak var taglistCollection: TaglistCollection!
 
     @IBOutlet weak var compareButton: UIButton!
 
     @IBOutlet weak var premiumButton: UIButton!
-    
+
     @IBAction func premiumButtonPressed(_ sender: UIButton) {
-        let premiumViewController = PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
+        let premiumViewController = PremiumViewController(freePremiumDaysLeft: viewModel.freePremiumDaysLeft)
         present(premiumViewController, animated: true)
     }
 
     @IBAction func hamburgerButtonPressed(_ sender: UIButton) {
-        showHamburgerActionSheet()
+        // TODO: - Uncomment this & remove the next lines
+//        showHamburgerActionSheet()
+        let compareView = CompareView() // swiftUIView is View
+        let compareVC = UIHostingController(rootView: compareView)
+        present(compareVC, animated: true)
     }
-    
+
     private var loaderAnimationView: LottieAnimationView!
 
     @IBOutlet weak var loaderStackView: UIStackView!
 
-    private var sections: Sections?
-
     @IBAction func compareButtonPressed(_ sender: UIButton) {
-        guard freePremiumDaysLeft > 0 else {
+        guard viewModel.freePremiumDaysLeft > 0 else {
             let alert = UIAlertController(title: "Buy premium", message: "Free trail has expired", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
                 self.premiumButtonPressed(sender)
@@ -102,120 +126,36 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             return
         }
         if inputTypeSwitch.isOn {
-            // text
-            guard let firstInput = firstInputTextField.text,
-                  !firstInput.isEmpty,
-                  let secondInput = secondInputTextField.text,
-                  !secondInput.isEmpty,
-                  let question = questionTextField.text,
-                  !question.isEmpty else {
-                showAlert(title: "Input missing", message: "Required fields are empty")
-                return
-            }
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.success)
-            startLoadingAnimations()
-            Task {
-                do {
-                    let response = try await aiModel.compare(firstInput: firstInput,
-                                                             secondInput: secondInput,
-                                                             question: question, criterias: taglistCollection.copyAllTags())
-                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
-                } catch {
-                    print(error)
-                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
-                }
-                stopLoadingAnimations()
-            }
+            viewModel.compareUsingText(firstInputTextField.text,
+                                       secondInputTextField.text,
+                                       questionTextField.text,
+                                       criterias: taglistCollection.copyAllTags())
         } else {
-            guard let firstImage = firstImageView.image,
-                  firstImage != placeholderImage,
-                  let secondImage = secondImageView.image,
-                  secondImage != placeholderImage else {
-                showAlert(title: "Input missing", message: "Please add both images")
-                return
-            }
-            guard let question = questionTextField.text,
-                  !question.isEmpty else {
-                showAlert(title: "Input missing", message: "Please ask a question")
-                    return
-            }
-            let generator = UINotificationFeedbackGenerator()
-            generator.notificationOccurred(.success)
-            startLoadingAnimations()
-            Task {
-                do {
-                    let response = try await aiModel.compare(firstImage: firstImage,
-                                                             secondImage: secondImage,
-                                                             question: question, criterias: taglistCollection.copyAllTags())
-                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
-                } catch {
-                    print(error)
-                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
-                }
-                stopLoadingAnimations()
-            }
+            viewModel.compareUsingImage(firstImageView.image,
+                                        secondImageView.image,
+                                        questionTextField.text,
+                                        criterias: taglistCollection.copyAllTags())
         }
     }
 
-    private func handleResponse(response: String?, errorMessage: String?) {
-        if let response = response {
-            if let sections = parseResponseJsonToSections(response: response) {
-                self.sections = sections
-                responseTableView.reloadData()
-            } else {
-                showAlert(title: "Sorry", message: "Please try again later")
-            }
-        } else {
-            showAlert(title: "Sorry", message: "No response available")
-        }
+    func reloadTableView() {
+        responseTableView.reloadData()
     }
 
-    private func parseResponseJsonToSections(response: String) -> Sections? {
-        guard let data = response.data(using: .utf8) else {
-            return nil
-        }
-        do {
-            let sections = try JSONDecoder().decode(Sections.self, from: data)
-            return sections
-        } catch {
-            print("Error converting JSON to string array: \(error)")
-            return nil
-        }
-    }
-
-    private func startLoadingAnimations() {
+    func startLoadingAnimations() {
         loaderStackView.isHidden = false
         loaderAnimationView.play()
         compareButton.isUserInteractionEnabled = false
     }
 
-    private func stopLoadingAnimations() {
+    func stopLoadingAnimations() {
         loaderStackView.isHidden = true
         loaderAnimationView.stop()
         compareButton.isUserInteractionEnabled = true
     }
 
-    private var aiModel: AiModel!
     private var imagePickerVC: UIImagePickerController!
     private var firstImageViewFlag = true
-    private let placeholderImage = UIImage(systemName: "plus")!
-    private let maxFreePremiumDays = 14
-    private var freePremiumDaysLeft: Int {
-        if let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
-            if let installDate = try! FileManager.default.attributesOfItem(atPath: documentsFolder.path)[.creationDate] as? Date,
-               let daysSinceInstallation = Calendar.current.dateComponents([.day], from: installDate, to: Date()).day {
-                if daysSinceInstallation <= maxFreePremiumDays {
-                    return maxFreePremiumDays - daysSinceInstallation
-                } else {
-                    return 0
-                }
-            }
-        }
-        return maxFreePremiumDays
-    }
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,7 +164,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         inputTypeSwitch.isOn = UserDefaults.standard.bool(forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
         imageStackView.isHidden = inputTypeSwitch.isOn
         textStackView.isHidden = !inputTypeSwitch.isOn
-        aiModel = AiModel()
         imagePickerVC = UIImagePickerController()
         imagePickerVC.sourceType = .camera
         imagePickerVC.allowsEditing = true
@@ -235,8 +174,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let secondTapGesture = UITapGestureRecognizer(target: self, action: #selector(secondImageTapped(tapGestureRecognizer:)))
         secondImageView.isUserInteractionEnabled = true
         secondImageView.addGestureRecognizer(secondTapGesture)
-        firstImageView.image = placeholderImage
-        secondImageView.image = placeholderImage
+        firstImageView.image = viewModel.placeholderImage
+        secondImageView.image = viewModel.placeholderImage
         firstImageView.addGreyBorder()
         secondImageView.addGreyBorder()
         questionTextField.addGreyBorder()
@@ -260,8 +199,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             premiumButton.isHidden = true
         } else {
             premiumButton.isHidden = false
-            premiumButton.setTitle("\(freePremiumDaysLeft) days left", for: .normal)
-            if freePremiumDaysLeft == 0 {
+            premiumButton.setTitle("\(viewModel.freePremiumDaysLeft) days left", for: .normal)
+            if viewModel.freePremiumDaysLeft == 0 {
                 premiumButton.tintColor = .systemRed
             } else {
                 premiumButton.tintColor = .systemBlue
@@ -292,8 +231,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         loaderStackView.isHidden = true
     }
 
-    private func showAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    func showAlert(type: AlertType) {
+        let alert = UIAlertController(title: type.title, message: type.message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
         return
@@ -390,33 +329,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
 }
 
-
-extension UIViewController {
-    func hideKeyboardWhenTappedAround() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
-
-extension UIView {
-    func addGreyBorder() {
-        layer.borderColor = UIColor.gray.cgColor
-        layer.masksToBounds = true
-        contentMode = .scaleToFill
-        layer.borderWidth = 2
-        contentMode = .center
-    }
-}
-
-extension ViewController: UITableViewDelegate, UITableViewDataSource {
+extension CompareViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         var count = 0
-        if sections != nil {
+        if viewModel.sections != nil {
             count = 3
         }
         return count
@@ -436,9 +352,9 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let sections = sections else {
+        guard let sections = viewModel.sections else {
             return UITableViewCell()
         }
         if indexPath.section == 0  {

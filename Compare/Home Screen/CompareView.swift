@@ -8,10 +8,6 @@
 import SwiftUI
 import PhotosUI
 
-enum AlertType {
-    case logout, premium, requiredTextError, requiredImageError
-}
-
 struct CompareView: View {
     @State var firstKeyword: String = ""
     @State var secondKeyword: String = ""
@@ -83,8 +79,6 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
-//                            let generator = UINotificationFeedbackGenerator()
-//                            generator.notificationOccurred(.success)
 //                            startLoadingAnimations()
 //                            Task {
 //                                do {
@@ -105,8 +99,6 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
-//                            let generator = UINotificationFeedbackGenerator()
-//                            generator.notificationOccurred(.success)
 //                            startLoadingAnimations()
 //                            Task {
 //                                do {
@@ -155,8 +147,8 @@ struct CompareView: View {
             .alert(isPresented: $alertPresented) {
                 switch alertPresentedType {
                 case .logout:
-                    Alert(title: Text("Logout"),
-                          message: Text("Are you sure?"),
+                    Alert(title: Text(alertPresentedType.title),
+                          message: Text(alertPresentedType.message),
                           primaryButton: .cancel(),
                           secondaryButton: .destructive(Text("Yes"), action: {
     //                    KeychainItem.deleteUserIdentifierFromKeychain()
@@ -164,18 +156,15 @@ struct CompareView: View {
     //                    self.premiumButton.isHidden = false
                     }))
                 case .premium:
-                    Alert(title: Text("Buy premium"),
-                          message: Text("Free trail has expired"),
+                    Alert(title: Text(alertPresentedType.title),
+                          message: Text(alertPresentedType.message),
                           primaryButton: .default(Text("Buy"), action: {
     //                    let premiumViewController = PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
     //                    present(premiumViewController, animated: true)
                     }), secondaryButton: .destructive(Text("Cancel")))
-                case .requiredTextError:
-                    Alert(title: Text("Text missing"),
-                          message: Text("Required text fields are empty"))
-                case .requiredImageError:
-                    Alert(title: Text("Images missing"),
-                          message: Text("Please add both images"))
+                default:
+                    Alert(title: Text(alertPresentedType.title),
+                          message: Text(alertPresentedType.message))
                 }
 
             }

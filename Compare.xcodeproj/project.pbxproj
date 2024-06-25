@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D086FB32C2B14C5007C4902 /* CompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */; };
+		0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */; };
+		0D086FB72C2B1EF8007C4902 /* CompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */; };
 		0D37B39F2BA30FA400023731 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0D37B39E2BA30FA400023731 /* SkeletonView */; };
 		0D45BA9B2C26DBDD00661B28 /* CompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45BA9A2C26DBDD00661B28 /* CompareView.swift */; };
 		0D45BA9D2C2843F900661B28 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45BA9C2C2843F900661B28 /* ImagePicker.swift */; };
@@ -27,7 +30,6 @@
 		0D9E77912BA898CB00357F78 /* ComparisonTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9E778F2BA898CB00357F78 /* ComparisonTableViewCell.xib */; };
 		0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0152BA18B0B006A528A /* AppDelegate.swift */; };
 		0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */; };
-		0DB1D01A2BA18B0B006A528A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB1D0192BA18B0B006A528A /* ViewController.swift */; };
 		0DB1D01D2BA18B0B006A528A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DB1D01B2BA18B0B006A528A /* Main.storyboard */; };
 		0DB1D01F2BA18B0C006A528A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DB1D01E2BA18B0C006A528A /* Assets.xcassets */; };
 		0DB1D0222BA18B0C006A528A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0DB1D0202BA18B0C006A528A /* LaunchScreen.storyboard */; };
@@ -47,6 +49,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel.swift; sourceTree = "<group>"; };
+		0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
+		0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompareViewController.xib; sourceTree = "<group>"; };
 		0D45BA9A2C26DBDD00661B28 /* CompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareView.swift; sourceTree = "<group>"; };
 		0D45BA9C2C2843F900661B28 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
@@ -66,7 +71,6 @@
 		0DB1D0122BA18B0B006A528A /* Compare-It.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Compare-It.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0DB1D0152BA18B0B006A528A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0DB1D0172BA18B0B006A528A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		0DB1D0192BA18B0B006A528A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0DB1D01C2BA18B0B006A528A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0DB1D01E2BA18B0C006A528A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0DB1D0212BA18B0C006A528A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -126,8 +130,9 @@
 		0D8378782BA44F6100A91D3D /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				0DB1D0192BA18B0B006A528A /* ViewController.swift */,
-				0DB1D01B2BA18B0B006A528A /* Main.storyboard */,
+				0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */,
+				0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */,
+				0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */,
 				0D45BA9A2C26DBDD00661B28 /* CompareView.swift */,
 				0D45BA9C2C2843F900661B28 /* ImagePicker.swift */,
 				0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */,
@@ -172,6 +177,7 @@
 				0DB1D0322BA1CAEE006A528A /* Keys.plist */,
 				0DB1D01E2BA18B0C006A528A /* Assets.xcassets */,
 				0DB1D0202BA18B0C006A528A /* LaunchScreen.storyboard */,
+				0DB1D01B2BA18B0B006A528A /* Main.storyboard */,
 				0DB1D0232BA18B0C006A528A /* Info.plist */,
 				0DD201F82BA4BE0400BA0D05 /* Test.storekit */,
 				0D8643A52BA8AF96005C871F /* StoreKitTestCertificate.cer */,
@@ -278,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D086FB72C2B1EF8007C4902 /* CompareViewController.xib in Resources */,
 				0D4D814B2BA727F70059706D /* welcome.json in Resources */,
 				0D4D81492BA727F70059706D /* loader-cube.json in Resources */,
 				0D8378762BA44F3F00A91D3D /* TutorialViewController.xib in Resources */,
@@ -303,17 +310,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DB1D01A2BA18B0B006A528A /* ViewController.swift in Sources */,
 				0DD201F32BA48E6500BA0D05 /* PremiumViewController.swift in Sources */,
 				0D9E778C2BA8861900357F78 /* ParagraphTableViewCell.swift in Sources */,
 				0D45BA9D2C2843F900661B28 /* ImagePicker.swift in Sources */,
 				0DB1D03C2BA20AC6006A528A /* StringExtentions.swift in Sources */,
 				0D8378752BA44F3F00A91D3D /* TutorialViewController.swift in Sources */,
 				0DB1D03D2BA20AC6006A528A /* TagCollectionCell.swift in Sources */,
+				0D086FB32C2B14C5007C4902 /* CompareViewModel.swift in Sources */,
 				0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */,
 				0D9E77902BA898CB00357F78 /* ComparisonTableViewCell.swift in Sources */,
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
 				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
+				0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */,
 				0DD201F72BA4914800BA0D05 /* KeychainItem.swift in Sources */,
 				0D4D814E2BA777600059706D /* Extensions.swift in Sources */,
 				0D45BA9F2C2861B500661B28 /* ConditionalModifier.swift in Sources */,
