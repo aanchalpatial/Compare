@@ -76,31 +76,7 @@ struct CompareView: View {
                     }
 
                     if !criterias.isEmpty {
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(content: {
-                                ForEach(criterias.indices, id: \.self) { index in
-                                    Button {
-                                        withAnimation {
-                                            criterias.removeAll(where: { $0 == criteria })
-                                        }
-                                    } label: {
-                                        HStack {
-                                            Text(criterias[index])
-                                            Image(systemName: "xmark")
-
-                                        }
-                                    }
-                                    .font(.footnote)
-                                    .foregroundStyle(.black)
-                                    .padding(6)
-                                    .background(.white)
-                                    .overlay {
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
-                                    }
-                                }
-                            })
-                        }
+                        CriteriaListView(criterias: $criterias)
                     }
 
                     BlackBackgroundButtonView(title: "compare", handler: {
@@ -282,5 +258,36 @@ struct BlackBorderImageView: View {
                     firstPhotosPickerItem = nil
                 }
             }
+    }
+}
+
+struct CriteriaListView: View {
+    @Binding var criterias: [String]
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            LazyHStack(content: {
+                ForEach(criterias.indices, id: \.self) { index in
+                    Button {
+                        withAnimation {
+                            criterias.removeAll(where: { $0 == criterias[index] })
+                        }
+                    } label: {
+                        HStack {
+                            Text(criterias[index])
+                            Image(systemName: "xmark")
+                            
+                        }
+                    }
+                    .font(.footnote)
+                    .foregroundStyle(.black)
+                    .padding(6)
+                    .background(.white)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                    }
+                }
+            })
+        }
     }
 }
