@@ -9,6 +9,9 @@ import SwiftUI
 import PhotosUI
 
 struct CompareView: View {
+
+//    @StateObject private let viewModel: CompareBusinessLogic
+
     @State var firstKeyword: String = ""
     @State var secondKeyword: String = ""
     @State var firstImage: UIImage?
@@ -24,6 +27,8 @@ struct CompareView: View {
 
     var imageSpacing: CGFloat = 8
     var freeTrialDays = 1
+    @State var criterias = [String]()
+
     var body: some View {
         UITextField.appearance().clearButtonMode = .whileEditing
 
@@ -58,6 +63,44 @@ struct CompareView: View {
                     HStack {
                         TextField("(Optional) Add criterias here ...", text: $criteria)
                         BlackBorderButtonView(title: "add", width: 60)
+                            .onTapGesture {
+                                if !criteria.isEmpty {
+                                    withAnimation {
+                                        criterias.append(criteria)
+                                    }
+                                } else {
+                                    alertPresentedType = .requiredTextError
+                                    alertPresented = true
+                                }
+                            }
+                    }
+
+                    if !criterias.isEmpty {
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack(content: {
+                                ForEach(criterias.indices, id: \.self) { index in
+                                    Button {
+                                        withAnimation {
+                                            criterias.removeAll(where: { $0 == criteria })
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Text(criterias[index])
+                                            Image(systemName: "xmark")
+
+                                        }
+                                    }
+                                    .font(.footnote)
+                                    .foregroundStyle(.black)
+                                    .padding(6)
+                                    .background(.white)
+                                    .overlay {
+                                        RoundedRectangle(cornerRadius: 8)
+                                            .stroke(style: StrokeStyle(lineWidth: 1, dash: [4]))
+                                    }
+                                }
+                            })
+                        }
                     }
 
                     BlackBackgroundButtonView(title: "compare", handler: {
@@ -79,18 +122,7 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
-//                            startLoadingAnimations()
-//                            Task {
-//                                do {
-//                                    let response = try await aiModel.compare(firstImage: firstImage,
-//                                                                             secondImage: secondImage,
-//                                                                             question: question, criterias: taglistCollection.copyAllTags())
-//                                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
-//                                } catch {
-//                                    print(error)
-//                                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
-//                                }
-//                                stopLoadingAnimations()
+                            // TODO: - viewModel call
                         } else {
                             guard !firstKeyword.isEmpty,
                                   !secondKeyword.isEmpty,
@@ -99,19 +131,7 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
-//                            startLoadingAnimations()
-//                            Task {
-//                                do {
-//                                    let response = try await aiModel.compare(firstInput: firstKeyword,
-//                                                                             secondInput: secondKeyword,
-//                                                                             question: question, criterias: taglistCollection.copyAllTags())
-//                                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
-//                                } catch {
-//                                    print(error)
-//                                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
-//                                }
-//                                stopLoadingAnimations()
-//                            }
+                            // TODO: - viewModel call
                         }
                     })
 
