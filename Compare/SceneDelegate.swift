@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
-        window.rootViewController = CompareViewController()
+        window.rootViewController = UIHostingController(rootView: CompareView())
+        // Note: - Below line is used to show the corresponding UIKit view
+//        window.rootViewController = CompareViewController()
         self.window = window
         window.makeKeyAndVisible()
     }

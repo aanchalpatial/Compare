@@ -9,8 +9,9 @@ import UIKit
 import AuthenticationServices
 import StoreKit
 import Lottie
+import SwiftUI
 
-class PremiumViewController: UIViewController {
+final class PremiumViewController: UIViewController {
 
     @IBOutlet weak var welcomeStackView: UIStackView!
     @IBOutlet weak var alreadyBoughtPremiumStackView: UIStackView!
@@ -260,5 +261,18 @@ extension PremiumViewController: SKProductsRequestDelegate, SKPaymentTransaction
     func updateAppForPremiumAccess() {
         UserDefaults.standard.set(true, forKey: UserDefaults.Keys.alreadyPremiumUser.rawValue)
         setupForAlreadyBoughtPremium()
+    }
+}
+
+struct PremiumView: UIViewControllerRepresentable {
+    let freePremiumDaysLeft: Int
+    typealias UIViewControllerType = PremiumViewController
+
+    func makeUIViewController(context: Context) -> PremiumViewController {
+        PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
+    }
+    
+    func updateUIViewController(_ uiViewController: PremiumViewController, context: Context) {
+        uiViewController.view.backgroundColor = .clear
     }
 }

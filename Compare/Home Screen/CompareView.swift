@@ -7,6 +7,7 @@
 
 import SwiftUI
 import PhotosUI
+import Lottie
 
 struct CompareView: View {
 
@@ -18,15 +19,27 @@ struct CompareView: View {
     @State var secondImage: UIImage?
     @State var question: String = ""
     @State var criteria: String = ""
-
-    @State var compareUsingImage = true
-
+    @State var compareUsingImage = false
     @State var hamburgerSheetPresented = false
     @State var alertPresented = false
     @State var alertPresentedType: AlertType = .requiredTextError
+    @State var premiumSheetPresented = false
+    @State var tutorialSheetPresented = false
+    @State var playbackMode = LottiePlaybackMode.paused(at: .currentFrame)
 
-    var imageSpacing: CGFloat = 8
-    var freeTrialDays = 1
+    var comparisonResult = ComparisonResult(introduction: "Cristiano Ronaldo and Lionel Messi are two of the greatest footballers of all time. Both players have achieved incredible success at both the club and international level, and they have both won numerous individual awards. But who is the better player? It's a question that has been debated by fans and pundits for years.", comparisonTable: [
+        ["Header","messi", "ronaldo"],
+        ["Goals","793", "819"],
+        ["Assists","350", "233"],
+        ["Trophies","41", "34"],
+        ["Ballon d'Or awards","7", "5"],
+        ["FIFA World Player of the Year awards","6", "5"],
+        ["UEFA Men's Player of the Year awards","4", "3"],
+        ["Champions League titles","4", "5"]
+      ], conclusion: "Based on the comparison table, it is clear that both Messi and Ronaldo are exceptional players. However, Messi has a slight edge in terms of goals, assists, and trophies. Additionally, Messi has won more individual awards than Ronaldo. Therefore, I believe that Messi is the better player.")
+
+    let imageSpacing: CGFloat = 8
+    let freeTrialDays = 1
     @State var criterias = [String]()
 
     var body: some View {
@@ -38,8 +51,6 @@ struct CompareView: View {
 
                 let toggleText = compareUsingImage ? "Toggle to compare using text" : "Toggle to compare using images"
                 Toggle(toggleText, isOn: $compareUsingImage)
-                    .foregroundStyle(.secondary)
-
 
                 let inputSectionText = compareUsingImage ? "Add images to compare" : "Add keywords to compare"
                 Section(inputSectionText) {
@@ -87,7 +98,7 @@ struct CompareView: View {
                         }
 
                         if compareUsingImage {
-                            var bothImagesAdded = !(firstImage == nil || secondImage == nil)
+                            let bothImagesAdded = !(firstImage == nil || secondImage == nil)
                             guard bothImagesAdded else {
                                 alertPresentedType = .requiredImageError
                                 alertPresented = true
@@ -98,6 +109,7 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
+                            playbackMode =  .playing(.fromProgress(0, toProgress: 1, loopMode: .loop))
                             // TODO: - viewModel call
                         } else {
                             guard !firstKeyword.isEmpty,
@@ -107,14 +119,49 @@ struct CompareView: View {
                                 alertPresented = true
                                 return
                             }
+                            playbackMode =  .playing(.fromProgress(0, toProgress: 1, loopMode: .loop))
                             // TODO: - viewModel call
                         }
                     })
+                }
 
+                if playbackMode == .playing(.fromProgress(0, toProgress: 1, loopMode: .loop)) {
+                    HStack {
+                        Spacer()
+                        LottieView(animation: .named("loader-cube"))
+                            .playbackMode(playbackMode)
+                        Spacer()
+                    }
                 }
 
 
+                Section("Introduction") {
+                    Text(comparisonResult.introduction)
+                }
+
+                Section("Comparison Table") {
+                    ForEach(comparisonResult.comparisonTable, id: \.self) { row in
+                        GeometryReader { geometry in
+                            HStack {
+                                ForEach(row, id: \.self) { cell in
+                                    Text(cell)
+                                        .frame(maxWidth: geometry.size.width * 0.33, alignment: .leading)
+                                        .minimumScaleFactor(0.5)
+                                    if cell != row.last {
+                                        Divider()
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                Section("Conclusion") {
+                    Text(comparisonResult.conclusion)
+                }
             }
+            .font(.custom("Verdana", size: 14))
             .navigationTitle("compareIt!")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -124,8 +171,7 @@ struct CompareView: View {
                     .tint(.black)
                     .confirmationDialog("", isPresented: $hamburgerSheetPresented) {
                         Button("Tutorial") {
-//                            let tutorial = TutorialViewController()
-//                            self.present(tutorial, animated: true)
+                            tutorialSheetPresented = true
                         }
                         Button("Logout") {
                             alertPresentedType = .logout
@@ -135,8 +181,7 @@ struct CompareView: View {
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("\(freeTrialDays) days left") {
-//                        let premiumViewController = PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
-//                        present(premiumViewController, animated: true)
+                        premiumSheetPresented = true
                     }
                 }
             }
@@ -147,16 +192,15 @@ struct CompareView: View {
                           message: Text(alertPresentedType.message),
                           primaryButton: .cancel(),
                           secondaryButton: .destructive(Text("Yes"), action: {
-    //                    KeychainItem.deleteUserIdentifierFromKeychain()
-    //                    UserDefaults.standard.reset()
+//                        KeychainItem.deleteUserIdentifierFromKeychain()
+//                        UserDefaults.standard.reset()
     //                    self.premiumButton.isHidden = false
                     }))
                 case .premium:
                     Alert(title: Text(alertPresentedType.title),
                           message: Text(alertPresentedType.message),
                           primaryButton: .default(Text("Buy"), action: {
-    //                    let premiumViewController = PremiumViewController(freePremiumDaysLeft: freePremiumDaysLeft)
-    //                    present(premiumViewController, animated: true)
+                        premiumSheetPresented = true
                     }), secondaryButton: .destructive(Text("Cancel")))
                 default:
                     Alert(title: Text(alertPresentedType.title),
@@ -164,9 +208,29 @@ struct CompareView: View {
                 }
 
             }
+
+        }
+        .sheet(isPresented: $premiumSheetPresented) {
+            PremiumView(freePremiumDaysLeft: freeTrialDays)
+        }
+        .sheet(isPresented: $tutorialSheetPresented) {
+            TutorialView()
+                .presentationBackground(.clear)
         }
 
     }
+}
+
+struct BackgroundCleanerView: UIViewRepresentable {
+    func makeUIView(context: Context) -> UIView {
+        let view = UIView()
+        DispatchQueue.main.async {
+            view.superview?.superview?.backgroundColor = .clear
+        }
+        return view
+    }
+
+    func updateUIView(_ uiView: UIView, context: Context) {}
 }
 
 #Preview {
@@ -184,7 +248,7 @@ struct BlackBackgroundButtonView: View {
             Text(title)
                 .frame(maxWidth: .infinity)
         }
-        .font(.headline)
+        .fontWeight(.medium)
         .foregroundStyle(.white)
         .padding(8)
         .background(.black)
@@ -202,7 +266,7 @@ struct BlackBorderButtonView: View {
             Text(title)
                 .frame(maxWidth: width)
         }
-        .font(.headline)
+        .fontWeight(.medium)
         .foregroundStyle(.black)
         .padding(8)
         .background(.white)
@@ -278,7 +342,6 @@ struct CriteriaListView: View {
                             
                         }
                     }
-                    .font(.footnote)
                     .foregroundStyle(.black)
                     .padding(6)
                     .background(.white)

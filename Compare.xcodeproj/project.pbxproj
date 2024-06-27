@@ -131,8 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */,
-				0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */,
 				0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */,
+				0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */,
 				0D45BA9A2C26DBDD00661B28 /* CompareView.swift */,
 				0D45BA9C2C2843F900661B28 /* ImagePicker.swift */,
 				0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */,

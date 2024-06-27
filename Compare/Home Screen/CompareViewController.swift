@@ -105,11 +105,7 @@ final class CompareViewController: UIViewController, CompareDisplayLogic, UIImag
     }
 
     @IBAction func hamburgerButtonPressed(_ sender: UIButton) {
-        // TODO: - Uncomment this & remove the next lines
-//        showHamburgerActionSheet()
-        let compareView = CompareView() // swiftUIView is View
-        let compareVC = UIHostingController(rootView: compareView)
-        present(compareVC, animated: true)
+        showHamburgerActionSheet()
     }
 
     private var loaderAnimationView: LottieAnimationView!
@@ -332,7 +328,7 @@ final class CompareViewController: UIViewController, CompareDisplayLogic, UIImag
 extension CompareViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         var count = 0
-        if viewModel.sections != nil {
+        if viewModel.comparisonResult != nil {
             count = 3
         }
         return count
@@ -354,7 +350,7 @@ extension CompareViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let sections = viewModel.sections else {
+        guard let sections = viewModel.comparisonResult else {
             return UITableViewCell()
         }
         if indexPath.section == 0  {
@@ -363,7 +359,7 @@ extension CompareViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ComparisonTableViewCell.identifier) as! ComparisonTableViewCell
-            cell.configure(rows: sections.comparisonTable)
+//            cell.configure(rows: sections.comparisonTable)
             return cell
         } else if indexPath.section == 2 {
             let cell = tableView.dequeueReusableCell(withIdentifier: ParagraphTableViewCell.identifier) as! ParagraphTableViewCell

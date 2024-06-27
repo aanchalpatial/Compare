@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 class TutorialViewController: UIViewController {
 
@@ -26,4 +27,14 @@ class TutorialViewController: UIViewController {
     @objc func dismissTapGestureHandler(_ sender:AnyObject){
          dismiss(animated: true)
     }
+}
+
+struct TutorialView: UIViewControllerRepresentable {
+    typealias UIViewControllerType = TutorialViewController
+
+    func makeUIViewController(context: Context) -> TutorialViewController {
+        return TutorialViewController()
+    }
+
+    func updateUIViewController(_ uiViewController: TutorialViewController, context: Context) {}
 }

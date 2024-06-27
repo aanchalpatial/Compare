@@ -10,7 +10,7 @@ import UIKit
 
 protocol CompareBusinessLogic: AnyObject {
     var freePremiumDaysLeft: Int { get }
-    var sections: Sections? { get }
+    var comparisonResult: ComparisonResult? { get }
     var placeholderImage: UIImage { get }
     func compareUsingText(_ firstInput: String?, _ secondInput: String?, _ question: String?, criterias: [String])
     func compareUsingImage(_ firstImage: UIImage?, _ secondImage: UIImage?, _ question: String?, criterias: [String])
@@ -35,7 +35,7 @@ final class CompareViewModel: CompareBusinessLogic {
         }
         return maxFreePremiumDays
     }
-    var sections: Sections?
+    var comparisonResult: ComparisonResult?
     let placeholderImage = UIImage(systemName: "plus")!
 
     init(service: CompareServiceProtocol = CompareService()) {
@@ -100,7 +100,7 @@ final class CompareViewModel: CompareBusinessLogic {
     private func handleResponse(response: String?, errorMessage: String?) {
         if let response = response {
             if let sections = parseResponseJsonToSections(response: response) {
-                self.sections = sections
+                self.comparisonResult = sections
                 view?.reloadTableView()
             } else {
                 view?.showAlert(type: .parsingError)
@@ -110,12 +110,12 @@ final class CompareViewModel: CompareBusinessLogic {
         }
     }
 
-    private func parseResponseJsonToSections(response: String) -> Sections? {
+    private func parseResponseJsonToSections(response: String) -> ComparisonResult? {
         guard let data = response.data(using: .utf8) else {
             return nil
         }
         do {
-            let sections = try JSONDecoder().decode(Sections.self, from: data)
+            let sections = try JSONDecoder().decode(ComparisonResult.self, from: data)
             return sections
         } catch {
             print("Error converting JSON to string array: \(error)")
