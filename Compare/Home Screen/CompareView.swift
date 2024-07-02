@@ -140,21 +140,24 @@ struct CompareView: View {
                 }
 
                 Section("Comparison Table") {
-                    ForEach(comparisonResult.comparisonTable, id: \.self) { row in
-                        GeometryReader { geometry in
-                            HStack {
+                    Grid(alignment: .leading) {
+                        ForEach(comparisonResult.comparisonTable, id: \.self) { row in
+
+                            GridRow {
                                 ForEach(row, id: \.self) { cell in
-                                    Text(cell)
-                                        .frame(maxWidth: geometry.size.width * 0.33, alignment: .leading)
-                                        .minimumScaleFactor(0.5)
-                                    if cell != row.last {
-                                        Divider()
+                                    if row == comparisonResult.comparisonTable.first {
+                                        Text(cell)
+                                            .fontWeight(.semibold)
+                                    } else {
+                                        Text(cell)
                                     }
                                 }
                             }
+                            Divider()
                         }
 
                     }
+                    .fixedSize(horizontal: false, vertical: true)
                 }
 
                 Section("Conclusion") {
@@ -283,7 +286,7 @@ struct BlackBorderImageView: View {
     @State var cameraPresented = false
     @State var firstPhotosPickerItem: PhotosPickerItem?
     @Binding var image: UIImage?
-    var width: CGFloat = 150
+    let width: CGFloat = 150
     var body: some View {
 
         Image(uiImage: image ?? UIImage(systemName: "plus")!)
