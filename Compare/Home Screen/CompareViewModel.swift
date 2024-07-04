@@ -5,23 +5,21 @@
 //  Created by Aanchal Patial on 25/06/24.
 //
 
-import Foundation
 import UIKit
 
 protocol CompareBusinessLogic: AnyObject {
     var freePremiumDaysLeft: Int { get }
     var comparisonResult: ComparisonResult? { get }
-    var placeholderImage: UIImage { get }
-    func compareUsingText(_ firstInput: String?, _ secondInput: String?, _ question: String?, criterias: [String])
-    func compareUsingImage(_ firstImage: UIImage?, _ secondImage: UIImage?, _ question: String?, criterias: [String])
+    var placeholderImageName: String { get }
+    func compareUsingText(firstText: String?, secondText: String?, question: String?, criterias: [String])
+    func compareUsingImage(firstImage: UIImage?, secondImage: UIImage?, question: String?, criterias: [String])
 }
 // MARK: - ViewModel
 final class CompareViewModel: CompareBusinessLogic {
 
     weak var view: CompareDisplayLogic?
-    private let aiModel = AiModel()
     private let service: CompareServiceProtocol
-    private let maxFreePremiumDays = 14
+    private let maxFreePremiumDays = 140
     var freePremiumDaysLeft: Int {
         if let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
             if let installDate = try! FileManager.default.attributesOfItem(atPath: documentsFolder.path)[.creationDate] as? Date,
@@ -36,17 +34,17 @@ final class CompareViewModel: CompareBusinessLogic {
         return maxFreePremiumDays
     }
     var comparisonResult: ComparisonResult?
-    let placeholderImage = UIImage(systemName: "plus")!
+    let placeholderImageName = "plus"
 
     init(service: CompareServiceProtocol = CompareService()) {
         self.service = service
     }
 
-    func compareUsingText(_ firstInput: String?, _ secondInput: String?, _ question: String?, criterias: [String]) {
-        guard let firstInput = firstInput,
-              !firstInput.isEmpty,
-              let secondInput = secondInput,
-              !secondInput.isEmpty,
+    func compareUsingText(firstText: String?, secondText: String?, question: String?, criterias: [String]) {
+        guard let firstText = firstText,
+              !firstText.isEmpty,
+              let secondText = secondText,
+              !secondText.isEmpty,
               let question = question,
               !question.isEmpty else {
             view?.showAlert(type: .requiredTextError)
@@ -55,24 +53,30 @@ final class CompareViewModel: CompareBusinessLogic {
         view?.startLoadingAnimations()
         Task {
             do {
-                let response = try await aiModel.compare(firstInput: firstInput,
-                                                         secondInput: secondInput,
-                                                         question: question, 
-                                                         criterias: criterias)
-                handleResponse(response: response, errorMessage: "Sorry ... no response available")
+                let response = try await service.compareUsingText(firstText: firstText,
+                                                                  secondText: secondText,
+                                                                  question: question,
+                                                                  criterias: criterias)
+                await MainActor.run {
+                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
+                }
             } catch {
                 print(error)
-                handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
+                await MainActor.run {
+                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
+                }
             }
-            view?.stopLoadingAnimations()
+            await MainActor.run {
+                view?.stopLoadingAnimations()
+            }
         }
     }
 
-    func compareUsingImage(_ firstImage: UIImage?, _ secondImage: UIImage?, _ question: String?, criterias: [String]) {
+    func compareUsingImage(firstImage: UIImage?, secondImage: UIImage?, question: String?, criterias: [String]) {
         guard let firstImage = firstImage,
-              firstImage != placeholderImage,
+              !firstImage.isEqual(UIImage(systemName: placeholderImageName)),
               let secondImage = secondImage,
-              secondImage != placeholderImage else {
+              !secondImage.isEqual(UIImage(systemName: placeholderImageName)) else {
             view?.showAlert(type: .requiredImageError)
             return
         }
@@ -84,16 +88,22 @@ final class CompareViewModel: CompareBusinessLogic {
         view?.startLoadingAnimations()
         Task {
             do {
-                let response = try await aiModel.compare(firstImage: firstImage,
-                                                         secondImage: secondImage,
-                                                         question: question,
-                                                         criterias: criterias)
-                handleResponse(response: response, errorMessage: "Sorry ... no response available")
+                let response = try await service.compareUsingImage(firstImage: firstImage,
+                                                                   secondImage: secondImage,
+                                                                   question: question,
+                                                                   criterias: criterias)
+                await MainActor.run {
+                    handleResponse(response: response, errorMessage: "Sorry ... no response available")
+                }
             } catch {
                 print(error)
-                handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
+                await MainActor.run {
+                    handleResponse(response: nil, errorMessage: "We are facing some error, please retry after sometime ...")
+                }
             }
-            view?.stopLoadingAnimations()
+            await MainActor.run {
+                view?.stopLoadingAnimations()
+            }
         }
     }
 
@@ -120,49 +130,6 @@ final class CompareViewModel: CompareBusinessLogic {
         } catch {
             print("Error converting JSON to string array: \(error)")
             return nil
-        }
-    }
-
-}
-
-protocol CompareServiceProtocol: AnyObject {}
-// MARK: - Worker
-final class CompareService: CompareServiceProtocol {}
-
-enum AlertType {
-    case logout, premium, requiredTextError, requiredImageError, parsingError, noResponse
-
-    var title: String {
-        switch self {
-        case .logout:
-            "Logout"
-        case .premium:
-            "Buy premium"
-        case .requiredTextError:
-            "Text missing"
-        case .requiredImageError:
-            "Images missing"
-        case .parsingError:
-            "Sorry"
-        case .noResponse:
-            "Sorry"
-        }
-    }
-
-    var message: String {
-        switch self {
-        case .logout:
-            "Are you sure?"
-        case .premium:
-            "Free trail has expired"
-        case .requiredTextError:
-            "Required text fields are empty"
-        case .requiredImageError:
-            "Please add both images"
-        case .parsingError:
-            "Please try again later"
-        case .noResponse:
-            "No response available"
         }
     }
 }

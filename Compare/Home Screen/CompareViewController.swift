@@ -122,14 +122,14 @@ final class CompareViewController: UIViewController, CompareDisplayLogic, UIImag
             return
         }
         if inputTypeSwitch.isOn {
-            viewModel.compareUsingText(firstInputTextField.text,
-                                       secondInputTextField.text,
-                                       questionTextField.text,
+            viewModel.compareUsingText(firstText: firstInputTextField.text,
+                                       secondText: secondInputTextField.text,
+                                       question: questionTextField.text,
                                        criterias: taglistCollection.copyAllTags())
         } else {
-            viewModel.compareUsingImage(firstImageView.image,
-                                        secondImageView.image,
-                                        questionTextField.text,
+            viewModel.compareUsingImage(firstImage: firstImageView.image,
+                                        secondImage: secondImageView.image,
+                                        question: questionTextField.text,
                                         criterias: taglistCollection.copyAllTags())
         }
     }
@@ -170,8 +170,8 @@ final class CompareViewController: UIViewController, CompareDisplayLogic, UIImag
         let secondTapGesture = UITapGestureRecognizer(target: self, action: #selector(secondImageTapped(tapGestureRecognizer:)))
         secondImageView.isUserInteractionEnabled = true
         secondImageView.addGestureRecognizer(secondTapGesture)
-        firstImageView.image = viewModel.placeholderImage
-        secondImageView.image = viewModel.placeholderImage
+        firstImageView.image = UIImage(systemName: viewModel.placeholderImageName)
+        secondImageView.image = UIImage(systemName: viewModel.placeholderImageName)
         firstImageView.addGreyBorder()
         secondImageView.addGreyBorder()
         questionTextField.addGreyBorder()

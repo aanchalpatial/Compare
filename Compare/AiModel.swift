@@ -8,7 +8,7 @@
 import UIKit
 import GoogleGenerativeAI
 
-class AiModel {
+final class AiModel {
     private let config: GenerationConfig
     private let textModel: GenerativeModel
     private let visionModel: GenerativeModel
@@ -84,7 +84,7 @@ class AiModel {
             prompt += "\ngiven criterias are: \(criteriasString)"
         }
         prompt += promptEnding
-        print("prompt with image: \(prompt)")
+//        print("prompt with image: \(prompt)")
         let response = try await visionModel.generateContent(firstImage, secondImage, prompt)
         return response.text
     }
@@ -96,7 +96,7 @@ class AiModel {
             prompt += "\ngiven criterias are: \(criteriasString)"
         }
         prompt += promptEnding
-        print("prompt with text: \(prompt)")
+//        print("prompt with text: \(prompt)")
         let response = try await textModel.generateContent(prompt)
         return response.text
     }

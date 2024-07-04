@@ -10,6 +10,14 @@
 		0D086FB32C2B14C5007C4902 /* CompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */; };
 		0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */; };
 		0D086FB72C2B1EF8007C4902 /* CompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */; };
+		0D315F8B2C36CD6E00943725 /* PrimaryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8A2C36CD6E00943725 /* PrimaryButtonView.swift */; };
+		0D315F8D2C36CD8600943725 /* SecondaryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8C2C36CD8600943725 /* SecondaryButtonView.swift */; };
+		0D315F8F2C36CDA300943725 /* BlackBorderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */; };
+		0D315F912C36CDB400943725 /* CriteriaListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F902C36CDB400943725 /* CriteriaListView.swift */; };
+		0D315F932C36D25400943725 /* CompareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F922C36D25400943725 /* CompareService.swift */; };
+		0D315F952C36D27800943725 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F942C36D27800943725 /* AlertType.swift */; };
+		0D315F982C36D79E00943725 /* CompareViewModel2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F972C36D79E00943725 /* CompareViewModel2.swift */; };
+		0D315F9A2C37124D00943725 /* InputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F992C37124D00943725 /* InputType.swift */; };
 		0D37B39F2BA30FA400023731 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0D37B39E2BA30FA400023731 /* SkeletonView */; };
 		0D45BA9B2C26DBDD00661B28 /* CompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45BA9A2C26DBDD00661B28 /* CompareView.swift */; };
 		0D45BA9D2C2843F900661B28 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D45BA9C2C2843F900661B28 /* ImagePicker.swift */; };
@@ -52,6 +60,14 @@
 		0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel.swift; sourceTree = "<group>"; };
 		0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
 		0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompareViewController.xib; sourceTree = "<group>"; };
+		0D315F8A2C36CD6E00943725 /* PrimaryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonView.swift; sourceTree = "<group>"; };
+		0D315F8C2C36CD8600943725 /* SecondaryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonView.swift; sourceTree = "<group>"; };
+		0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackBorderImageView.swift; sourceTree = "<group>"; };
+		0D315F902C36CDB400943725 /* CriteriaListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriteriaListView.swift; sourceTree = "<group>"; };
+		0D315F922C36D25400943725 /* CompareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareService.swift; sourceTree = "<group>"; };
+		0D315F942C36D27800943725 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
+		0D315F972C36D79E00943725 /* CompareViewModel2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel2.swift; sourceTree = "<group>"; };
+		0D315F992C37124D00943725 /* InputType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputType.swift; sourceTree = "<group>"; };
 		0D45BA9A2C26DBDD00661B28 /* CompareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareView.swift; sourceTree = "<group>"; };
 		0D45BA9C2C2843F900661B28 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalModifier.swift; sourceTree = "<group>"; };
@@ -106,6 +122,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D315F962C36D73D00943725 /* SwiftUI Home Screen */ = {
+			isa = PBXGroup;
+			children = (
+				0D45BA9A2C26DBDD00661B28 /* CompareView.swift */,
+				0D315F972C36D79E00943725 /* CompareViewModel2.swift */,
+				0D315F992C37124D00943725 /* InputType.swift */,
+				0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */,
+				0D315F8A2C36CD6E00943725 /* PrimaryButtonView.swift */,
+				0D315F8C2C36CD8600943725 /* SecondaryButtonView.swift */,
+				0D315F902C36CDB400943725 /* CriteriaListView.swift */,
+				0D45BA9C2C2843F900661B28 /* ImagePicker.swift */,
+				0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */,
+			);
+			path = "SwiftUI Home Screen";
+			sourceTree = "<group>";
+		};
 		0D4D814C2BA727FE0059706D /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,11 +163,10 @@
 			isa = PBXGroup;
 			children = (
 				0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */,
+				0D315F922C36D25400943725 /* CompareService.swift */,
 				0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */,
 				0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */,
-				0D45BA9A2C26DBDD00661B28 /* CompareView.swift */,
-				0D45BA9C2C2843F900661B28 /* ImagePicker.swift */,
-				0D45BA9E2C2861B500661B28 /* ConditionalModifier.swift */,
+				0D315F942C36D27800943725 /* AlertType.swift */,
 				0DB1D03E2BA20ACF006A528A /* Taglist */,
 				0D9E778A2BA8861900357F78 /* ParagraphTableViewCell.swift */,
 				0D9E778B2BA8861900357F78 /* ParagraphTableViewCell.xib */,
@@ -171,6 +202,7 @@
 				0DB1D02C2BA18B89006A528A /* AiModel.swift */,
 				0D4D814D2BA777600059706D /* Extensions.swift */,
 				0D8378782BA44F6100A91D3D /* Home Screen */,
+				0D315F962C36D73D00943725 /* SwiftUI Home Screen */,
 				0D8378772BA44F5300A91D3D /* Tutorial Screen */,
 				0DD201F52BA48E6B00BA0D05 /* PremiumScreen */,
 				0D4D814C2BA727FE0059706D /* Resources */,
@@ -313,15 +345,23 @@
 				0DD201F32BA48E6500BA0D05 /* PremiumViewController.swift in Sources */,
 				0D9E778C2BA8861900357F78 /* ParagraphTableViewCell.swift in Sources */,
 				0D45BA9D2C2843F900661B28 /* ImagePicker.swift in Sources */,
+				0D315F982C36D79E00943725 /* CompareViewModel2.swift in Sources */,
 				0DB1D03C2BA20AC6006A528A /* StringExtentions.swift in Sources */,
 				0D8378752BA44F3F00A91D3D /* TutorialViewController.swift in Sources */,
 				0DB1D03D2BA20AC6006A528A /* TagCollectionCell.swift in Sources */,
+				0D315F952C36D27800943725 /* AlertType.swift in Sources */,
 				0D086FB32C2B14C5007C4902 /* CompareViewModel.swift in Sources */,
+				0D315F9A2C37124D00943725 /* InputType.swift in Sources */,
 				0DB1D0162BA18B0B006A528A /* AppDelegate.swift in Sources */,
 				0D9E77902BA898CB00357F78 /* ComparisonTableViewCell.swift in Sources */,
+				0D315F8D2C36CD8600943725 /* SecondaryButtonView.swift in Sources */,
+				0D315F8F2C36CDA300943725 /* BlackBorderImageView.swift in Sources */,
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
+				0D315F8B2C36CD6E00943725 /* PrimaryButtonView.swift in Sources */,
 				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
 				0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */,
+				0D315F932C36D25400943725 /* CompareService.swift in Sources */,
+				0D315F912C36CDB400943725 /* CriteriaListView.swift in Sources */,
 				0DD201F72BA4914800BA0D05 /* KeychainItem.swift in Sources */,
 				0D4D814E2BA777600059706D /* Extensions.swift in Sources */,
 				0D45BA9F2C2861B500661B28 /* ConditionalModifier.swift in Sources */,
