@@ -16,13 +16,9 @@ struct CompareView: View {
 
     var body: some View {
         UITextField.appearance().clearButtonMode = .whileEditing
-
         return NavigationStack {
-
             List {
-                
                 Toggle(viewModel.inputType.toggleText, isOn: $viewModel.inputType.toggleValue)
-
                 Section(viewModel.inputType.inputSectionText) {
                     HStack(spacing: 8) {
                         switch viewModel.inputType {
@@ -146,7 +142,6 @@ struct CompareView: View {
                 }
 
             }
-
         }
         .sheet(isPresented: $viewModel.presentPremiumSheet) {
             PremiumView(freePremiumDaysLeft: viewModel.remainingFreeTrialDays)
@@ -155,7 +150,6 @@ struct CompareView: View {
             TutorialView()
                 .presentationBackground(.clear)
         }
-
     }
 }
 

@@ -9,7 +9,7 @@ import UIKit
 
 protocol CompareBusinessLogic: AnyObject {
     var freePremiumDaysLeft: Int { get }
-    var comparisonResult: ComparisonResult? { get }
+    var comparisonResult: ComparisonOutput? { get }
     var placeholderImageName: String { get }
     func compareUsingText(firstText: String?, secondText: String?, question: String?, criterias: [String])
     func compareUsingImage(firstImage: UIImage?, secondImage: UIImage?, question: String?, criterias: [String])
@@ -33,7 +33,7 @@ final class CompareViewModel: CompareBusinessLogic {
         }
         return maxFreePremiumDays
     }
-    var comparisonResult: ComparisonResult?
+    var comparisonResult: ComparisonOutput?
     let placeholderImageName = "plus"
 
     init(service: CompareServiceProtocol = CompareService()) {
@@ -120,12 +120,12 @@ final class CompareViewModel: CompareBusinessLogic {
         }
     }
 
-    private func parseResponseJsonToSections(response: String) -> ComparisonResult? {
+    private func parseResponseJsonToSections(response: String) -> ComparisonOutput? {
         guard let data = response.data(using: .utf8) else {
             return nil
         }
         do {
-            let sections = try JSONDecoder().decode(ComparisonResult.self, from: data)
+            let sections = try JSONDecoder().decode(ComparisonOutput.self, from: data)
             return sections
         } catch {
             print("Error converting JSON to string array: \(error)")

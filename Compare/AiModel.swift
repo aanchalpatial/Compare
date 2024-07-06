@@ -103,7 +103,7 @@ final class AiModel {
 }
 
 
-struct ComparisonResult: Decodable {
+struct ComparisonOutput: Decodable {
     let introduction: String
     let comparisonTable: [[String]]
     let conclusion: String

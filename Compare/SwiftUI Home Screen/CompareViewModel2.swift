@@ -21,7 +21,7 @@ final class CompareViewModel2: ObservableObject {
     @Published var criteriaList = [String]()
     @Published var criteria: String = ""
     @Published var playbackMode: LottiePlaybackMode = .paused(at: .currentFrame)
-    @Published var comparisonResult: ComparisonResult?
+    @Published var comparisonResult: ComparisonOutput?
     @Published var presentHamburgerSheet = false
     @Published var presentPremiumSheet = false
     @Published var presentTutorialSheet = false
@@ -160,12 +160,12 @@ final class CompareViewModel2: ObservableObject {
         }
     }
 
-    private func parseResponseJsonToSections(response: String) -> ComparisonResult? {
+    private func parseResponseJsonToSections(response: String) -> ComparisonOutput? {
         guard let data = response.data(using: .utf8) else {
             return nil
         }
         do {
-            let sections = try JSONDecoder().decode(ComparisonResult.self, from: data)
+            let sections = try JSONDecoder().decode(ComparisonOutput.self, from: data)
             return sections
         } catch {
             print("Error converting JSON to string array: \(error)")

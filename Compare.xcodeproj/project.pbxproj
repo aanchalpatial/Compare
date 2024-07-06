@@ -10,6 +10,9 @@
 		0D086FB32C2B14C5007C4902 /* CompareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */; };
 		0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */; };
 		0D086FB72C2B1EF8007C4902 /* CompareViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */; };
+		0D23E6B82C38416600F3D1FA /* PrimaryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D23E6B72C38416600F3D1FA /* PrimaryTabView.swift */; };
+		0D23E6BA2C38432200F3D1FA /* SavedResultListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D23E6B92C38432200F3D1FA /* SavedResultListView.swift */; };
+		0D23E6BC2C38711F00F3D1FA /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D23E6BB2C38711F00F3D1FA /* ResultView.swift */; };
 		0D315F8B2C36CD6E00943725 /* PrimaryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8A2C36CD6E00943725 /* PrimaryButtonView.swift */; };
 		0D315F8D2C36CD8600943725 /* SecondaryButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8C2C36CD8600943725 /* SecondaryButtonView.swift */; };
 		0D315F8F2C36CDA300943725 /* BlackBorderImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */; };
@@ -60,6 +63,9 @@
 		0D086FB22C2B14C5007C4902 /* CompareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewModel.swift; sourceTree = "<group>"; };
 		0D086FB42C2B1EF8007C4902 /* CompareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompareViewController.swift; sourceTree = "<group>"; };
 		0D086FB52C2B1EF8007C4902 /* CompareViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompareViewController.xib; sourceTree = "<group>"; };
+		0D23E6B72C38416600F3D1FA /* PrimaryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryTabView.swift; sourceTree = "<group>"; };
+		0D23E6B92C38432200F3D1FA /* SavedResultListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedResultListView.swift; sourceTree = "<group>"; };
+		0D23E6BB2C38711F00F3D1FA /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		0D315F8A2C36CD6E00943725 /* PrimaryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonView.swift; sourceTree = "<group>"; };
 		0D315F8C2C36CD8600943725 /* SecondaryButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondaryButtonView.swift; sourceTree = "<group>"; };
 		0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackBorderImageView.swift; sourceTree = "<group>"; };
@@ -125,7 +131,10 @@
 		0D315F962C36D73D00943725 /* SwiftUI Home Screen */ = {
 			isa = PBXGroup;
 			children = (
+				0D23E6B72C38416600F3D1FA /* PrimaryTabView.swift */,
 				0D45BA9A2C26DBDD00661B28 /* CompareView.swift */,
+				0D23E6B92C38432200F3D1FA /* SavedResultListView.swift */,
+				0D23E6BB2C38711F00F3D1FA /* ResultView.swift */,
 				0D315F972C36D79E00943725 /* CompareViewModel2.swift */,
 				0D315F992C37124D00943725 /* InputType.swift */,
 				0D315F8E2C36CDA300943725 /* BlackBorderImageView.swift */,
@@ -358,11 +367,14 @@
 				0D315F8F2C36CDA300943725 /* BlackBorderImageView.swift in Sources */,
 				0DB1D0182BA18B0B006A528A /* SceneDelegate.swift in Sources */,
 				0D315F8B2C36CD6E00943725 /* PrimaryButtonView.swift in Sources */,
+				0D23E6BC2C38711F00F3D1FA /* ResultView.swift in Sources */,
 				0DB1D03A2BA20AC6006A528A /* Theme.swift in Sources */,
 				0D086FB62C2B1EF8007C4902 /* CompareViewController.swift in Sources */,
 				0D315F932C36D25400943725 /* CompareService.swift in Sources */,
 				0D315F912C36CDB400943725 /* CriteriaListView.swift in Sources */,
 				0DD201F72BA4914800BA0D05 /* KeychainItem.swift in Sources */,
+				0D23E6B82C38416600F3D1FA /* PrimaryTabView.swift in Sources */,
+				0D23E6BA2C38432200F3D1FA /* SavedResultListView.swift in Sources */,
 				0D4D814E2BA777600059706D /* Extensions.swift in Sources */,
 				0D45BA9F2C2861B500661B28 /* ConditionalModifier.swift in Sources */,
 				0DB1D03B2BA20AC6006A528A /* CloseButton.swift in Sources */,
