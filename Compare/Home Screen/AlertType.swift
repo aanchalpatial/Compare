@@ -8,7 +8,7 @@
 import Foundation
 
 enum AlertType {
-    case logout, premium, requiredTextError, requiredImageError, parsingError, noResponse
+    case logout, premium, requiredTextError, requiredImageError, parsingError, noResponse, unableToSaveResult
 
     var title: String {
         switch self {
@@ -24,6 +24,8 @@ enum AlertType {
             "Sorry"
         case .noResponse:
             "Sorry"
+        case .unableToSaveResult:
+            "Unable to save result"
         }
     }
 
@@ -41,6 +43,8 @@ enum AlertType {
             "Unable to parse response"
         case .noResponse:
             "No response available"
+        case .unableToSaveResult:
+            "Please try again later"
         }
     }
 }

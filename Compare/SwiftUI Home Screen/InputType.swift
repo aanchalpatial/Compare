@@ -21,8 +21,10 @@ enum InputType {
         }
         set {
             if newValue {
+                UserDefaults.standard.setValue(true, forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
                 self = .text
             } else {
+                UserDefaults.standard.setValue(false, forKey: UserDefaults.Keys.inputTypeSwitch.rawValue)
                 self = .image
             }
         }

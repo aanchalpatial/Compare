@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PrimaryTabView: View {
+    @State var selectedTab = 1
 
     var body: some View {
         TabView {
@@ -15,10 +16,12 @@ struct PrimaryTabView: View {
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
+                .tag(1)
             SavedResultListView(results: [])
                 .tabItem {
                     Label("Saved", systemImage: "bookmark.fill")
                 }
+                .tag(2)
         }
     }
 }

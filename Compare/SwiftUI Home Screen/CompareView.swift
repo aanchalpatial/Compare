@@ -25,9 +25,11 @@ struct CompareView: View {
                         case .text:
                             TextField("First keyword", text: $viewModel.firstKeyword)
                                 .multilineTextAlignment(.leading)
+                                .focused($isFocused)
                             Divider()
                             TextField("Second keyword", text: $viewModel.secondKeyword)
                                 .multilineTextAlignment(.leading)
+                                .focused($isFocused)
                         case .image:
                             BlackBorderImageView(image: $viewModel.firstImage, placeholder: placeholderImage)
                             Spacer()
@@ -36,6 +38,7 @@ struct CompareView: View {
                     }
 
                     TextField("Ask your question here", text: $viewModel.question)
+                        .focused($isFocused)
 
                     HStack {
                         TextField("(Optional) Add criterias here ...", text: $viewModel.criteria)
@@ -51,8 +54,9 @@ struct CompareView: View {
                     }
 
                     PrimaryButtonView(title: "compare", handler: {
-                        viewModel.compareButtonPressed()
                         isFocused = false
+                        viewModel.compareButtonPressed()
+                        UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                     })
                 }
 
@@ -67,17 +71,32 @@ struct CompareView: View {
 
                 if let comparisonResult = viewModel.comparisonResult {
 
-                    Section("Introduction") {
-                        Text(comparisonResult.introduction)
+                    Section {
+                        Text(comparisonResult.output.introduction)
+                    } header: {
+                        HStack {
+                            Text("Introduction")
+                            Spacer()
+                            if viewModel.isLoading {
+                                ProgressView()
+                            } else {
+                                let title = viewModel.resultSaved ? "Saved" : "Save"
+                                let systemImage = viewModel.resultSaved ? "checkmark" : "bookmark"
+                                Button(title, systemImage: systemImage) {
+                                    viewModel.saveResult()
+                                }
+                                .disabled(viewModel.resultSaved)
+                            }
+                        }
                     }
 
                     Section("Comparison Table") {
                         Grid(alignment: .leading) {
-                            ForEach(comparisonResult.comparisonTable, id: \.self) { row in
+                            ForEach(comparisonResult.output.comparisonTable, id: \.self) { row in
 
                                 GridRow {
                                     ForEach(row, id: \.self) { cell in
-                                        if row == comparisonResult.comparisonTable.first {
+                                        if row == comparisonResult.output.comparisonTable.first {
                                             Text(cell)
                                                 .fontWeight(.semibold)
                                         } else {
@@ -93,7 +112,7 @@ struct CompareView: View {
                     }
 
                     Section("Conclusion") {
-                        Text(comparisonResult.conclusion)
+                        Text(comparisonResult.output.conclusion)
                     }
                 }
             }

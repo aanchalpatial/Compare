@@ -12,16 +12,18 @@ import Lottie
 // MARK: - ViewModel
 final class CompareViewModel2: ObservableObject {
 
-    @Published var inputType: InputType = .text
-    @Published var firstKeyword: String = ""
-    @Published var secondKeyword: String = ""
+    @Published var inputType: InputType = UserDefaults.standard.bool(forKey: UserDefaults.Keys.inputTypeSwitch.rawValue) ? .text : .image
+    @Published var firstKeyword: String = "a"
+    @Published var secondKeyword: String = "b"
     @Published var firstImage: UIImage?
     @Published var secondImage: UIImage?
-    @Published var question: String = ""
+    @Published var question: String = "c"
     @Published var criteriaList = [String]()
     @Published var criteria: String = ""
     @Published var playbackMode: LottiePlaybackMode = .paused(at: .currentFrame)
-    @Published var comparisonResult: ComparisonOutput?
+    @Published var resultSaved = false
+    @Published var isLoading = false
+    @Published var comparisonResult: ComparisonResult?
     @Published var presentHamburgerSheet = false
     @Published var presentPremiumSheet = false
     @Published var presentTutorialSheet = false
@@ -29,6 +31,7 @@ final class CompareViewModel2: ObservableObject {
     @Published var alertType: AlertType = .requiredTextError
 
     private let service: CompareServiceProtocol
+    private let saveResultService: SaveResultServiceProtocol
     private let freeTrialDaysLimit = 14
     var remainingFreeTrialDays: Int {
         if let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
@@ -44,8 +47,9 @@ final class CompareViewModel2: ObservableObject {
         return freeTrialDaysLimit
     }
 
-    init(service: CompareServiceProtocol = CompareService()) {
+    init(service: CompareServiceProtocol = CompareService(), saveResultService: SaveResultServiceProtocol = SaveResultService()) {
         self.service = service
+        self.saveResultService = saveResultService
     }
 
     func compareButtonPressed() {
@@ -76,6 +80,7 @@ final class CompareViewModel2: ObservableObject {
     }
 
     func compareUsingText() {
+        resultSaved = false
         guard !firstKeyword.isEmpty,
               !secondKeyword.isEmpty,
               !question.isEmpty else {
@@ -86,17 +91,21 @@ final class CompareViewModel2: ObservableObject {
         playbackMode = .playing(.fromProgress(0, toProgress: 1, loopMode: .loop))
         Task {
             do {
+                let textInput = ComparisonTextInput(firstKeyword: firstKeyword,
+                                                    secondKeyword: secondKeyword,
+                                                    question: question)
                 let response = try await service.compareUsingText(firstText: firstKeyword,
                                                                   secondText: secondKeyword,
                                                                   question: question,
                                                                   criterias: criteriaList)
                 await MainActor.run {
-                    handleResponse(response: response)
+                    handleResponse(response: response, for: textInput)
                 }
             } catch {
                 print(error)
                 await MainActor.run {
-                    handleResponse(response: nil)
+                    alertType = .noResponse
+                    presentAlert = true
                 }
             }
             await MainActor.run {
@@ -106,6 +115,7 @@ final class CompareViewModel2: ObservableObject {
     }
 
     func compareUsingImage() {
+        resultSaved = false
         guard let firstImage = firstImage,
               let secondImage = secondImage else {
             alertType = .requiredImageError
@@ -120,17 +130,22 @@ final class CompareViewModel2: ObservableObject {
         playbackMode =  .playing(.fromProgress(0, toProgress: 1, loopMode: .loop))
         Task {
             do {
+
+                let imageInput = ComparisonImageInput(firstImage: firstImage, 
+                                                      secondImage: secondImage,
+                                                      question: question)
                 let response = try await service.compareUsingImage(firstImage: firstImage,
                                                                    secondImage: secondImage,
                                                                    question: question,
                                                                    criterias: criteriaList)
                 await MainActor.run {
-                    handleResponse(response: response)
+                    handleResponse(response: response, for: imageInput)
                 }
             } catch {
                 print(error)
                 await MainActor.run {
-                    handleResponse(response: nil)
+                    alertType = .noResponse
+                    presentAlert = true
                 }
             }
             await MainActor.run {
@@ -145,11 +160,38 @@ final class CompareViewModel2: ObservableObject {
 //        self.premiumButton.isHidden = false
     }
 
-    private func handleResponse(response: String?) {
+    func saveResult() {
+        if resultSaved == false,
+        let comparisonResult = comparisonResult {
+            isLoading = true
+            Task {
+                do {
+                    try await saveResultService.save(result: comparisonResult)
+                    await MainActor.run {
+                        resultSaved = true
+                    }
+                } catch {
+                    await MainActor.run {
+                        alertType = .unableToSaveResult
+                        presentAlert = true
+                    }
+                }
+                await MainActor.run {
+                    isLoading = false
+                }
+            }
+        }
+    }
+
+    private func handleResponse(response: String?, for textInput: ComparisonTextInput) {
         playbackMode = .paused(at: .currentFrame)
         if let response = response {
-            if let sections = parseResponseJsonToSections(response: response) {
-                comparisonResult = sections
+            if let output = parseResponseJsonToOutput(response: response) {
+                let result = ComparisonResult(id: UUID(),
+                                              textInput: textInput,
+                                              imageInput: nil,
+                                              output: output)
+                comparisonResult = result
             } else {
                 alertType = .parsingError
                 presentAlert = true
@@ -160,7 +202,26 @@ final class CompareViewModel2: ObservableObject {
         }
     }
 
-    private func parseResponseJsonToSections(response: String) -> ComparisonOutput? {
+    private func handleResponse(response: String?, for imageInput: ComparisonImageInput) {
+        playbackMode = .paused(at: .currentFrame)
+        if let response = response {
+            if let output = parseResponseJsonToOutput(response: response) {
+                let result = ComparisonResult(id: UUID(),
+                                              textInput: nil,
+                                              imageInput: imageInput,
+                                              output: output)
+                comparisonResult = result
+            } else {
+                alertType = .parsingError
+                presentAlert = true
+            }
+        } else {
+            alertType = .noResponse
+            presentAlert = true
+        }
+    }
+
+    private func parseResponseJsonToOutput(response: String) -> ComparisonOutput? {
         guard let data = response.data(using: .utf8) else {
             return nil
         }

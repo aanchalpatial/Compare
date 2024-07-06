@@ -13,11 +13,12 @@ struct ResultView: View {
     var body: some View {
         List {
             Section("Input") {
-                HStack {
-                    Text(result.question)
-                    Spacer()
-                }
+
                 if let textInput = result.textInput {
+                    HStack {
+                        Text(textInput.question)
+                        Spacer()
+                    }
                     HStack {
                         Text(textInput.firstKeyword)
                         Text("🆚")
@@ -27,7 +28,12 @@ struct ResultView: View {
 
                 } else if let imageInput = result.imageInput {
                     HStack {
-                        Image(uiImage: imageInput.firstImage)
+                        Text(imageInput.question)
+                        Spacer()
+                    }
+                    HStack {
+                        let firstImage = UIImage(data: imageInput.firstImageData) ?? UIImage()
+                        Image(uiImage: firstImage)
                             .resizable()
                             .frame(width: 150, height: 150)
                             .scaledToFit()
@@ -37,7 +43,8 @@ struct ResultView: View {
                                     .stroke(.placeholder)
                             }
                         Text("🆚")
-                        Image(uiImage: imageInput.secondImage)
+                        let secondImage = UIImage(data: imageInput.secondImageData) ?? UIImage()
+                        Image(uiImage: secondImage)
                             .resizable()
                             .frame(width: 150, height: 150)
                             .scaledToFit()
@@ -84,8 +91,7 @@ struct ResultView: View {
 }
 
 #Preview {
-    let input = ComparisonTextInput(firstKeyword: "messi", secondKeyword: "ronaldo")
-    let question = "who is a better footballer?"
+    let input = ComparisonTextInput(firstKeyword: "messi", secondKeyword: "ronaldo", question: "who is a better footballer?")
     let output = ComparisonOutput(introduction: "Cristiano Ronaldo and Lionel Messi are two of the greatest footballers of all time. Both players have achieved incredible success at both the club and international level, and they have both won numerous individual awards. But who is the better player? It's a question that has been debated by fans and pundits for years.",
                                   comparisonTable: [
         							["Header","messi", "ronaldo"],
@@ -97,9 +103,9 @@ struct ResultView: View {
         							["UEFA Men's Player of the Year awards","4", "3"],
         							["Champions League titles","4", "5"]],
                                   conclusion: "Based on the comparison table, it is clear that both Messi and Ronaldo are exceptional players. However, Messi has a slight edge in terms of goals, assists, and trophies. Additionally, Messi has won more individual awards than Ronaldo. Therefore, I believe that Messi is the better player.")
-    let result = ComparisonResult(textInput: input, imageInput: nil, question: question, output: output)
+    let result = ComparisonResult(id: UUID(), textInput: input, imageInput: nil, output: output)
     let image = UIImage(systemName: "applelogo")!
-    let imageInput = ComparisonImageInput(firstImage: image, secondImage: image)
-    let result2 = ComparisonResult(textInput: nil, imageInput: imageInput, question: "some question?", output: output)
+    let imageInput = ComparisonImageInput(firstImage: image, secondImage: image, question: "who is a better footballer?")
+    let result2 = ComparisonResult(id: UUID(), textInput: nil, imageInput: imageInput, output: output)
     return ResultView(result: result2)
 }
