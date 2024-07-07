@@ -167,7 +167,7 @@ struct CompareView: View {
         }
         .sheet(isPresented: $viewModel.presentTutorialSheet) {
             TutorialView()
-                .presentationBackground(.clear)
+                .presentationDetents([.medium, .large])
         }
     }
 }

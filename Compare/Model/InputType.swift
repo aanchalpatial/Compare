@@ -33,11 +33,12 @@ enum InputType {
     var toggleText: String {
         switch self {
         case .text:
-            "Toggle to compare using images"
+            "Toggle to compare using Image"
         case .image:
-            "Toggle to compare using text"
+            "Toggle to compare using Text"
         }
     }
+
     var inputSectionText: String {
         switch self {
         case .text:

@@ -101,16 +101,3 @@ final class AiModel {
         return response.text
     }
 }
-
-
-struct ComparisonOutput: Codable {
-    let introduction: String
-    let comparisonTable: [[String]]
-    let conclusion: String
-
-    enum CodingKeys: String, CodingKey {
-        case introduction = "Introduction"
-        case comparisonTable = "Comparison Table"
-        case conclusion = "Conclusion"
-    }
-}

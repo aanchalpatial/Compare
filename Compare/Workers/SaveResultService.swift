@@ -31,8 +31,8 @@ final class SaveResultService: SaveResultServiceProtocol {
         if let data = UserDefaults.standard.data(forKey: resultsDictionaryUserDefaultsKey) {
             var resultsDictionary = try JSONDecoder().decode([UUID: ComparisonResult].self, from: data)
             resultsDictionary[result.id] = result
-            let data = try JSONEncoder().encode(resultsDictionary)
-            UserDefaults.standard.set(data, forKey: resultsDictionaryUserDefaultsKey)
+            let updatedData = try JSONEncoder().encode(resultsDictionary)
+            UserDefaults.standard.set(updatedData, forKey: resultsDictionaryUserDefaultsKey)
         } else {
             throw NSError(domain: "No results dictionary exists", code: 0)
         }
@@ -42,8 +42,8 @@ final class SaveResultService: SaveResultServiceProtocol {
         if let data = UserDefaults.standard.data(forKey: resultsDictionaryUserDefaultsKey) {
             var resultsDictionary = try JSONDecoder().decode([UUID: ComparisonResult].self, from: data)
             resultsDictionary.removeValue(forKey: id)
-            let data = try JSONEncoder().encode(resultsDictionary)
-            UserDefaults.standard.set(data, forKey: resultsDictionaryUserDefaultsKey)
+            let updatedData = try JSONEncoder().encode(resultsDictionary)
+            UserDefaults.standard.set(updatedData, forKey: resultsDictionaryUserDefaultsKey)
         } else {
             throw NSError(domain: "No results dictionary exists", code: 0)
         }

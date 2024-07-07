@@ -7,39 +7,6 @@
 
 import SwiftUI
 
-struct ComparisonTextInput: Codable {
-    let firstKeyword: String
-    let secondKeyword: String
-    let question: String
-}
-
-struct ComparisonImageInput: Codable {
-    let firstImageData: Data
-    let secondImageData: Data
-    let question: String
-
-    init(firstImage: UIImage, secondImage: UIImage, question: String) {
-        firstImageData = firstImage.pngData() ?? Data()
-        secondImageData = secondImage.pngData() ?? Data()
-        self.question = question
-    }
-}
-
-struct ComparisonResult: Hashable, Codable {
-    let id: UUID
-    let textInput: ComparisonTextInput?
-    let imageInput: ComparisonImageInput?
-    let output: ComparisonOutput
-
-    static func == (lhs: ComparisonResult, rhs: ComparisonResult) -> Bool {
-        lhs.id == rhs.id
-    }
-
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
-
 struct SavedResultListView: View {
     private let savedResultService: SaveResultServiceProtocol = SaveResultService()
     @State private var isLoading = false
@@ -58,7 +25,7 @@ struct SavedResultListView: View {
                 List {
                     ForEach(results, id: \.self) { result in
                         if let textInput = result.textInput {
-                            let text = "\(textInput.firstKeyword) 🆚 \(textInput.secondKeyword) - \(result.id)"
+                            let text = "\(textInput.firstKeyword) 🆚 \(textInput.secondKeyword)"
                             NavigationLink(text, value: result)
                         } else if let imageInput = result.imageInput {
                             NavigationLink(value: result) {

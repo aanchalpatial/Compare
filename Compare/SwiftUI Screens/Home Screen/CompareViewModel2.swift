@@ -13,11 +13,11 @@ import Lottie
 final class CompareViewModel2: ObservableObject {
 
     @Published var inputType: InputType = UserDefaults.standard.bool(forKey: UserDefaults.Keys.inputTypeSwitch.rawValue) ? .text : .image
-    @Published var firstKeyword: String = "a"
-    @Published var secondKeyword: String = "b"
+    @Published var firstKeyword: String = ""
+    @Published var secondKeyword: String = ""
     @Published var firstImage: UIImage?
     @Published var secondImage: UIImage?
-    @Published var question: String = "c"
+    @Published var question: String = ""
     @Published var criteriaList = [String]()
     @Published var criteria: String = ""
     @Published var playbackMode: LottiePlaybackMode = .paused(at: .currentFrame)

@@ -28,13 +28,3 @@ class TutorialViewController: UIViewController {
          dismiss(animated: true)
     }
 }
-
-struct TutorialView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = TutorialViewController
-
-    func makeUIViewController(context: Context) -> TutorialViewController {
-        return TutorialViewController()
-    }
-
-    func updateUIViewController(_ uiViewController: TutorialViewController, context: Context) {}
-}
