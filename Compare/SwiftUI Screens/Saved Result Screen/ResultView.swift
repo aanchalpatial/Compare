@@ -40,9 +40,9 @@ struct ResultView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .overlay {
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.placeholder)
+                                    .stroke(.black)
                             }
-                        Text("🆚")
+                        Spacer()
                         let secondImage = UIImage(data: imageInput.secondImageData) ?? UIImage()
                         Image(uiImage: secondImage)
                             .resizable()
@@ -51,7 +51,7 @@ struct ResultView: View {
                             .clipShape(RoundedRectangle(cornerRadius: 8))
                             .overlay {
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.placeholder)
+                                    .stroke(.black)
                             }
                     }
                 }

@@ -12,17 +12,16 @@ struct PrimaryTabView: View {
     @StateObject private var savedResultsStore = SavedResultsService()
 
     var body: some View {
-        return TabView {
+        TabView {
             CompareView(savedResults: $savedResultsStore.results)
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
-                .tag(1)
+                .backgroundStyle(.black)
             SavedResultListView(savedResults: $savedResultsStore.results)
                 .tabItem {
                     Label("Saved", systemImage: "bookmark.fill")
                 }
-                .tag(2)
         }
         .task {
             try? await savedResultsStore.load()

@@ -27,7 +27,7 @@ struct BlackBorderImageView: View {
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .overlay {
                 RoundedRectangle(cornerRadius: 8)
-                    .stroke(.placeholder)
+                    .stroke(.black)
             }
             .onTapGesture {
                 imagePickerSheetPresented = true

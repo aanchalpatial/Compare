@@ -33,7 +33,7 @@ struct SavedResultListView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .overlay {
                                             RoundedRectangle(cornerRadius: 8)
-                                                .stroke(.placeholder)
+                                                .stroke(.black)
                                         }
                                     Text("🆚")
                                     Image(uiImage: UIImage(data: imageInput.secondImageData) ?? UIImage())
@@ -43,7 +43,7 @@ struct SavedResultListView: View {
                                         .clipShape(RoundedRectangle(cornerRadius: 8))
                                         .overlay {
                                             RoundedRectangle(cornerRadius: 8)
-                                                .stroke(.placeholder)
+                                                .stroke(.black)
                                         }
                                 }
                             }
