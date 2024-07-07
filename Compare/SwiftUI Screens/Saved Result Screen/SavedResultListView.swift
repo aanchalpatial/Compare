@@ -8,22 +8,18 @@
 import SwiftUI
 
 struct SavedResultListView: View {
-    private let savedResultService: SaveResultServiceProtocol = SaveResultService()
-    @State private var isLoading = false
-    @State var results = [ComparisonResult]()
+    @Binding var savedResults: [ComparisonResult]
 
     var body: some View {
         NavigationStack {
-            if isLoading {
-                ProgressView()
-            } else if results.isEmpty {
+            if savedResults.isEmpty {
                 Text("No saved results")
                     .font(.custom("Verdana", size: 18))
                     .foregroundStyle(.gray)
             }
             else {
                 List {
-                    ForEach(results, id: \.self) { result in
+                    ForEach(savedResults, id: \.self) { result in
                         if let textInput = result.textInput {
                             let text = "\(textInput.firstKeyword) 🆚 \(textInput.secondKeyword)"
                             NavigationLink(text, value: result)
@@ -54,7 +50,7 @@ struct SavedResultListView: View {
                         }
                     }
                     .onDelete(perform: { indexSet in
-                        removeResult(indexSet: indexSet)
+                        savedResults.remove(atOffsets: indexSet)
                     })
                 }
                 .navigationTitle("Saved results")
@@ -65,30 +61,6 @@ struct SavedResultListView: View {
             }
         }
         .font(.custom("Verdana", size: 14))
-        .onAppear(perform: {
-            isLoading = true
-            fetchSavedResults()
-        })
-    }
-
-    func fetchSavedResults() {
-        Task {
-            let results = await (try? savedResultService.getAllResults()) ?? []
-            await MainActor.run {
-                self.results = results
-                isLoading = false
-            }
-        }
-    }
-
-    func removeResult(indexSet: IndexSet) {
-        if let index = indexSet.first {
-            let id = results[index].id
-            results.remove(atOffsets: indexSet)
-            Task {
-                try? await savedResultService.removeResult(for: id)
-            }
-        }
     }
 }
 
@@ -109,6 +81,6 @@ struct SavedResultListView: View {
     let image = UIImage(systemName: "applelogo")!
     let imageInput = ComparisonImageInput(firstImage: image, secondImage: image, question: "who is a better footballer? who is a better footballer?")
     let result2 = ComparisonResult(id: UUID(), textInput: nil, imageInput: imageInput, output: output)
-    let results = [result, result2]
-    return SavedResultListView(results: results)
+    @State var results = [result, result2]
+    return SavedResultListView(savedResults: $results)
 }

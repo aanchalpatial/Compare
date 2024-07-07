@@ -22,7 +22,6 @@ final class CompareViewModel2: ObservableObject {
     @Published var criteria: String = ""
     @Published var playbackMode: LottiePlaybackMode = .paused(at: .currentFrame)
     @Published var resultSaved = false
-    @Published var isLoading = false
     @Published var comparisonResult: ComparisonResult?
     @Published var presentHamburgerSheet = false
     @Published var presentPremiumSheet = false
@@ -31,7 +30,6 @@ final class CompareViewModel2: ObservableObject {
     @Published var alertType: AlertType = .requiredTextError
 
     private let service: CompareServiceProtocol
-    private let saveResultService: SaveResultServiceProtocol
     private let freeTrialDaysLimit = 14
     var remainingFreeTrialDays: Int {
         if let documentsFolder = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last {
@@ -47,9 +45,8 @@ final class CompareViewModel2: ObservableObject {
         return freeTrialDaysLimit
     }
 
-    init(service: CompareServiceProtocol = CompareService(), saveResultService: SaveResultServiceProtocol = SaveResultService()) {
+    init(service: CompareServiceProtocol = CompareService()) {
         self.service = service
-        self.saveResultService = saveResultService
     }
 
     func compareButtonPressed() {
@@ -158,29 +155,6 @@ final class CompareViewModel2: ObservableObject {
         KeychainItem.deleteUserIdentifierFromKeychain()
         UserDefaults.standard.reset()
 //        self.premiumButton.isHidden = false
-    }
-
-    func saveResult() {
-        if resultSaved == false,
-        let comparisonResult = comparisonResult {
-            isLoading = true
-            Task {
-                do {
-                    try await saveResultService.save(result: comparisonResult)
-                    await MainActor.run {
-                        resultSaved = true
-                    }
-                } catch {
-                    await MainActor.run {
-                        alertType = .unableToSaveResult
-                        presentAlert = true
-                    }
-                }
-                await MainActor.run {
-                    isLoading = false
-                }
-            }
-        }
     }
 
     private func handleResponse(response: String?, for textInput: ComparisonTextInput) {

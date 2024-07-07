@@ -13,6 +13,7 @@ struct CompareView: View {
     @StateObject private var viewModel = CompareViewModel2()
     @FocusState private var isFocused: Bool
     let placeholderImage = UIImage(systemName: "plus")!
+    @Binding var savedResults: [ComparisonResult]
 
     var body: some View {
         UITextField.appearance().clearButtonMode = .whileEditing
@@ -77,16 +78,16 @@ struct CompareView: View {
                         HStack {
                             Text("Introduction")
                             Spacer()
-                            if viewModel.isLoading {
-                                ProgressView()
-                            } else {
-                                let title = viewModel.resultSaved ? "Saved" : "Save"
-                                let systemImage = viewModel.resultSaved ? "checkmark" : "bookmark"
-                                Button(title, systemImage: systemImage) {
-                                    viewModel.saveResult()
+                            let title = viewModel.resultSaved ? "Saved" : "Save"
+                            let systemImage = viewModel.resultSaved ? "checkmark" : "bookmark"
+                            Button(title, systemImage: systemImage) {
+                                if viewModel.resultSaved == false,
+                                   let comparisonResult = viewModel.comparisonResult {
+                                    viewModel.resultSaved = true
+                                    savedResults.append(comparisonResult)
                                 }
-                                .disabled(viewModel.resultSaved)
                             }
+                            .disabled(viewModel.resultSaved)
                         }
                     }
 
@@ -120,10 +121,9 @@ struct CompareView: View {
             .navigationTitle("compareIt!")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button("", systemImage: "line.3.horizontal") {
+                    Button("", systemImage: "ellipsis.circle") {
                         viewModel.presentHamburgerSheet = true
                     }
-                    .tint(.black)
                     .confirmationDialog("", isPresented: $viewModel.presentHamburgerSheet) {
                         Button("Tutorial") {
                             viewModel.presentTutorialSheet = true
@@ -173,5 +173,6 @@ struct CompareView: View {
 }
 
 #Preview {
-    CompareView()
+    @State var savedResults = [ComparisonResult]()
+    return CompareView(savedResults: $savedResults)
 }
