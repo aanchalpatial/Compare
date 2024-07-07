@@ -10,7 +10,7 @@ import SwiftUI
 import Lottie
 
 // MARK: - ViewModel
-final class CompareViewModel2: ObservableObject {
+final class ComparisonViewModel: ObservableObject {
 
     @Published var inputType: InputType = UserDefaults.standard.bool(forKey: UserDefaults.Keys.inputTypeSwitch.rawValue) ? .text : .image
     @Published var firstKeyword: String = ""

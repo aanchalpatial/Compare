@@ -10,7 +10,7 @@ import Lottie
 
 struct CompareView: View {
 
-    @StateObject private var viewModel = CompareViewModel2()
+    @StateObject private var viewModel = ComparisonViewModel()
     @FocusState private var isFocused: Bool
     let placeholderImage = UIImage(systemName: "plus")!
     @Binding var savedResults: [ComparisonResult]
